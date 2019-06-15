@@ -23,7 +23,11 @@ export default class App extends Component {
 
   placeSubmitHandler = (place) => {
     let places = [...this.state.places];
-    places = [...places, {place, placeImage}];
+    places = [...places,
+              {
+                place,
+                placeImage: {uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+              }}];
     this.setState({ places })
   }
 
