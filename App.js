@@ -27,6 +27,7 @@ export default class App extends Component {
   }
 
   itemDeleteHandler = (index) => {
+
     this.setState((prevState) => {
       return {
         places: prevState.places.filter((place, i) => {
