@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import PlaceInput from './src/PlaceInput/PlaceInput';
 import PlacesList from './src/PlacesList/PlacesList';
+import placeImage from './src/Assets/image.jpg';
 
 export default class App extends Component {
   state = {
@@ -22,7 +23,7 @@ export default class App extends Component {
 
   placeSubmitHandler = (place) => {
     let places = [...this.state.places];
-    places = [...places, place];
+    places = [...places, {place, placeImage}];
     this.setState({ places })
   }
 
