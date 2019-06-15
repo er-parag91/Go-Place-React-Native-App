@@ -10,10 +10,10 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import PlaceInput from './src/PlaceInput/PlaceInput';
 import PlacesList from './src/PlacesList/PlacesList';
-import placeImage from './src/Assets/image.jpg';
 import PlaceDetail from './src/PlaceDetail/PlaceDetail';
+import { connect } from 'react-redux';
 
-export default class App extends Component {
+class App extends Component {
   state = {
     places: [],
     selectedPlace: null
@@ -79,3 +79,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   }
 });
+
+export default connect()(App);

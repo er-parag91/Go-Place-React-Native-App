@@ -7,7 +7,7 @@
     "test": "jest",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "build:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios"
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
   },
   "dependencies": {
     "react": "16.8.3",
