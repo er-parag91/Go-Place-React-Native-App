@@ -13,16 +13,3 @@ export const deletePlace = () => {
         type: DELETE_PLACE
     }
 }
-
-export const selectPlace = (index) => {
-    return {
-        type: SELECT_PLACE,
-        index: index
-    }
-}
-
-export const deselectPlace = () => {
-    return {
-        type: DESELECT_PLACE
-    }
-}
