@@ -33,20 +33,6 @@ const reducer = (state = initialState, action) => {
                     selectedPlace: null
             }
 
-        case SELECT_PLACE:
-            return {
-                ...state,
-                selectedPlace: state.places.find((place, i) => {
-                    return i === action.index;
-                })
-            }
-
-        case DESELECT_PLACE:
-            return {
-                ...state,
-                selectedPlace: null
-            }
-
         default: 
             return state
     }
