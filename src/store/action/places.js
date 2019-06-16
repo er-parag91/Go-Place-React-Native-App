@@ -21,7 +21,7 @@ export const selectPlace = (index) => {
     }
 }
 
-export const deselectPlace = (index) => {
+export const deselectPlace = () => {
     return {
         type: DESELECT_PLACE
     }

@@ -5,7 +5,6 @@ const PlaceDetail = (props) => {
     if ( !props.selectedPlace ) {
         return null;
     }
-    console.warn(props.selectedPlace.placeImage, 'fewwewe')
     return (
         <Modal animationType="slide" style={styles.ModalContainer} onRequestClose={props.modalClosed}>
             <View>

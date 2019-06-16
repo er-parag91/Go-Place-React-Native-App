@@ -4,7 +4,6 @@ import {
     DESELECT_PLACE,
     SELECT_PLACE
 } from '../action/actionTypes';
-import { deflate } from 'zlib';
 
 const initialState = {
     places: [],
@@ -17,7 +16,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 places: state.places.concat({
-                    place,
+                    place: action.place,
                     key: Math.random(),
                     placeImage: {
                         uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
