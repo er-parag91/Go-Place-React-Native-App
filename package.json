@@ -13,8 +13,7 @@
     "react": "16.8.3",
     "react-native": "0.59.9",
     "react-redux": "6",
-    "redux": "^4.0.1",
-    "zlib": "^1.0.5"
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

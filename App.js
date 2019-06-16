@@ -11,9 +11,8 @@ import { StyleSheet, View } from 'react-native';
 import PlaceInput from './src/PlaceInput/PlaceInput';
 import PlacesList from './src/PlacesList/PlacesList';
 import PlaceDetail from './src/PlaceDetail/PlaceDetail';
-import { connect } from 'react-redux';
 
-class App extends Component {
+export default class App extends Component {
   state = {
     places: [],
     selectedPlace: null
@@ -79,5 +78,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   }
 });
-
-export default connect()(App);
