@@ -13,36 +13,41 @@ import java.util.List;
 
 import com.oblador.vectoricons.VectorIconsPackage;
 
-public class MainApplication extends Application implements ReactApplication {
+import com.reactnativenavigation.NavigationApplication;
+import com.reactnativenavigation.react.NavigationReactNativeHost;
+import com.reactnativenavigation.react.ReactGateway;
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
 
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
+public class MainApplication extends NavigationApplication {
+      
+      @Override
+      protected ReactGateway createReactGateway() {
+          ReactNativeHost host = new NavigationReactNativeHost(this, isDebug(), createAdditionalReactPackages()) {
+              @Override
+              protected String getJSMainModuleName() {
+                  return "index";
+              }
+          };
+          return new ReactGateway(this, isDebug(), host);
+      }
+  
+      @Override
+      public boolean isDebug() {
+          return BuildConfig.DEBUG;
+      }
+  
+      protected List<ReactPackage> getPackages() {
+          // Add additional packages you require here
+          // No need to add RnnPackage and MainReactPackage
+          return Arrays.<ReactPackage>asList(
+              new VectorIconsPackage(),
           new MainReactPackage()
-         , new VectorIconsPackage()
-      );
-    }
 
-    @Override
-    protected String getJSMainModuleName() {
-      return "index";
-    }
-  };
-
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
+          );
+      }
+    
+      @Override
+      public List<ReactPackage> createAdditionalReactPackages() {
+          return getPackages();
+      }
   }
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
-  }
-}
