@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, Text, Image, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const PlaceDetail = (props) => {
@@ -7,7 +7,6 @@ const PlaceDetail = (props) => {
         return null;
     }
     return (
-        <Modal animationType="slide" style={styles.ModalContainer} onRequestClose={props.modalClosed}>
             <View>
                 <Image resizeMode="cover" source={props.selectedPlace.placeImage} style={styles.placeImage} />
                 <Text style={styles.title}>{props.selectedPlace.place}</Text>
@@ -20,14 +19,10 @@ const PlaceDetail = (props) => {
                     <Button title="Cancel" onPress={props.modalClosed} />
                 </TouchableOpacity>
             </View>
-        </Modal>
     )
 }
 
 const styles = StyleSheet.create({
-    ModalContainer: {
-        margin: 20
-    },
     title: {
         textAlign: 'center',
         fontWeight: 'bold',
