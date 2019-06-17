@@ -18,13 +18,14 @@ const StartMainTabs = () => {
                         leftButtons: [
                             {
                                 icon: sources[2],
-                                title: "Menu"
+                                title: "Menu",
+                                id: "SideDrawerToggle"
                             }
                         ]
                     }
                 },
                 {
-                    screen: "Go-places.ShareScreenPlace",
+                    screen: "Go-places.SharePlaceScreen",
                     label: "Share Place",
                     title: "Share Place",
                     icon: sources[1],
@@ -32,7 +33,8 @@ const StartMainTabs = () => {
                         leftButtons: [
                             {
                                 icon: sources[2],
-                                title: "Menu"
+                                title: "Menu",
+                                id: "SideDrawerToggle"
                             }
                         ]
                     }
