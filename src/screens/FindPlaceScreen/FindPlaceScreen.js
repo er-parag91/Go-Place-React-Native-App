@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import PlacesList from '../../PlacesList/PlacesList';
+import PlacesList from '../../components/PlacesList/PlacesList';
 
 class FindPlaceScreen extends Component {
     constructor(props) {

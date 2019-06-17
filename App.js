@@ -3,7 +3,6 @@ import Auth from './src/screens/Auth/Auth';
 import FindPlaceScreen from './src/screens/FindPlaceScreen/FindPlaceScreen';
 import SharePlaceScreen from './src/screens/SharePlaceScreen/SharePlaceScreen';
 import { Provider } from 'react-redux';
-
 import configureStore from './src/store/configureStore';
 import PlaceDetail from './src/screens/PlaceDetail/PlaceDetail';
 import SideDrawer from './src/screens/SideDrawer/SideDrawer';
