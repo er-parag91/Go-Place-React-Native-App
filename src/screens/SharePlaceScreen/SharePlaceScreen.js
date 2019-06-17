@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import PlaceInput from '../../PlaceInput/PlaceInput';
+import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import { connect } from 'react-redux';
 import { addPlace } from '../../store/action/index';
 

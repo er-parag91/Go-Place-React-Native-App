@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, FlatList, sty } from 'react-native';
-import ListItem from '../components/ListItem/ListItem';
+import ListItem from '../ListItem/ListItem';
 
 const PlacesList = (props) => {
 
