@@ -7,7 +7,7 @@ class FindPlaceScreen extends Component {
 
     itemSelectedHandler = (key) => {
         const selectedPlace = this.props.places.find(place => {
-            return place,key === key;
+            return place.key === key;
         })
         this.props.navigator.push({
             screen: 'Go-places.PlaceDetail',
