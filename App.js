@@ -12,7 +12,7 @@ const store = configureStore();
 Navigation.registerComponent("Go-places.AuthScreen", () => Auth, store, Provider);
 Navigation.registerComponent("Go-places.FindPlaceScreen", () => FindPlaceScreen, store, Provider);
 Navigation.registerComponent("Go-places.ShareScreenPlace", () => ShareScreenPlace, store, Provider);
-Navigation.registerComponent("Go-places.PlaceDetail", () => PlaceDetail)
+Navigation.registerComponent("Go-places.PlaceDetail", () => PlaceDetail, store, Provider)
 
 Navigation.startSingleScreenApp({
   screen: {
