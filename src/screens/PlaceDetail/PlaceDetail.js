@@ -7,29 +7,33 @@ const PlaceDetail = (props) => {
         return null;
     }
     return (
-            <View>
-                <Image resizeMode="cover" source={props.selectedPlace.placeImage} style={styles.placeImage} />
-                <Text style={styles.title}>{props.selectedPlace.place}</Text>
-                <TouchableOpacity>
-                    <View style={styles.deleteButton}>
-                        <Icon onPress={props.itemDeleted} size={30} name="ios-trash" color="red" />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Button title="Cancel" onPress={props.modalClosed} />
-                </TouchableOpacity>
+            <View style={styles.container}>
+                <View>
+                    <Image resizeMode="cover" source={props.selectedPlace.placeImage} style={styles.placeImage} />
+                    <Text style={styles.title}>{props.selectedPlace.place}</Text>
+                </View>
+
+                <View>
+                    <TouchableOpacity onPress={props.itemDeleted}>
+                        <View style={styles.deleteButton}>
+                            <Icon size={30} name="ios-trash" color="red" />
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        margin: 22
+    },
     title: {
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 28
     },
     placeImage: {
-        marginRight: 8,
         height: 200,
         width: '100%'
     },

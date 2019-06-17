@@ -5,12 +5,14 @@ import ShareScreenPlace from './src/screens/ShareScreenPlace/ShareScreenPlace';
 import { Provider } from 'react-redux';
 
 import configureStore from './src/store/configureStore';
+import PlaceDetail from './src/screens/PlaceDetail/PlaceDetail';
 
 const store = configureStore();
 
 Navigation.registerComponent("Go-places.AuthScreen", () => Auth, store, Provider);
 Navigation.registerComponent("Go-places.FindPlaceScreen", () => FindPlaceScreen, store, Provider);
 Navigation.registerComponent("Go-places.ShareScreenPlace", () => ShareScreenPlace, store, Provider);
+Navigation.registerComponent("Go-places.PlaceDetail", () => PlaceDetail)
 
 Navigation.startSingleScreenApp({
   screen: {
