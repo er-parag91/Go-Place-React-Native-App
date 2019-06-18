@@ -29,10 +29,10 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     disabled: {
-        backgroundColor: '#eee',
+        backgroundColor: '#ccc',
     },
     disabledText: {
-        color: '#aaa'
+        color: '#999'
     }
 })
 
