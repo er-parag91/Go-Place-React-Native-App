@@ -7,6 +7,8 @@ import MainText from '../../components/UI/MainText/MainText';
 import backgroundImage from '../../Assets/background.jpg';
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 import validate from '../../utility/validation';
+import { connect } from 'react-redux';
+import { auth } from '../../store/action/index';
 
 class Auth extends Component {
     static navigatorStyle = {
@@ -56,6 +58,11 @@ class Auth extends Component {
     }
 
     LoginHandler = () => {
+        const authData = {
+            email: this.state.email,
+            password: this.state.password,
+        }
+        this.props.onLogin(authData);
         StartMainTabs();
     }
 
@@ -72,9 +79,6 @@ class Auth extends Component {
         }
 
         if (key === 'password') {
-            const equalControl = 'password';
-            const equalValue = this.state.controls[equalControl].value;
-
             connectedValue = {
                 ...connectedValue,
                 toEqual: value
@@ -217,4 +221,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Auth;
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogin: (authData) => dispatch(auth(authData))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Auth);

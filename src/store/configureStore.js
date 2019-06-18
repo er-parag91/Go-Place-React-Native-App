@@ -1,9 +1,11 @@
 import { createStore, combineReducers } from 'redux';
 
 import placeReducer from './reducer/places';
+import { authReducer } from './reducer/auth';
 
 const rootReducer = combineReducers({
-    places: placeReducer
+    places: placeReducer,
+    auth: authReducer
 })
 
 const configureStore = () => {
