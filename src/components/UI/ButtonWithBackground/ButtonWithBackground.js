@@ -5,7 +5,7 @@ const ButtonWithBackground = props => {
 
     const content = (
         <View style={[styles.button, { backgroundColor: props.color }, props.disabled ? styles.disabled : null]}>
-            <Text style={{ textAlign: 'center' }}>{props.children}</Text>
+            <Text style={[ props.disabled ? styles.disabledText : null, { textAlign: 'center' }]}>{props.children}</Text>
         </View>
     )
     if (Platform.OS === 'android') {
@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
     },
     disabled: {
         backgroundColor: '#eee',
+    },
+    disabledText: {
         color: '#aaa'
     }
 })
