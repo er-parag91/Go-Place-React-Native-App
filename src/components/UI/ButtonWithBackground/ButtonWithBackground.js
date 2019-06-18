@@ -5,7 +5,7 @@ const ButtonWithBackground = props => {
 
     const content = (
         <View style={[styles.button, { backgroundColor: props.color }, props.disabled ? styles.disabled : null]}>
-            <Text>{props.children}</Text>
+            <Text style={{ textAlign: 'center' }}>{props.children}</Text>
         </View>
     )
     if (Platform.OS === 'android') {
@@ -16,7 +16,7 @@ const ButtonWithBackground = props => {
         )
     }
     return (
-        <TouchableOpacity onPress={props.onPress}>
+        <TouchableOpacity onPress={props.onPress} style={{ width: props.width}}>
             {content}
         </TouchableOpacity>
     )
@@ -24,9 +24,9 @@ const ButtonWithBackground = props => {
 
 const styles = StyleSheet.create({
     button: {
-        padding: 10,
+        padding: 10,  
         margin: 5,
-        borderRadius: 5,
+        borderRadius: 25,
     },
     disabled: {
         backgroundColor: '#eee',

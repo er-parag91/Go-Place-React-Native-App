@@ -163,6 +163,7 @@ class Auth extends Component {
                         <ButtonWithBackground
                             onPress={this.LoginHandler}
                             color="#29aaf4"
+                            width="50%"
                             disabled={!controls.email.valid || !controls.password.valid || !controls.confirmPassword.valid}
                         >
                         Login
