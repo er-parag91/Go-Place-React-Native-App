@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import PlaceInput from '../../components/PlaceInput/PlaceInput';
+import { View, Button, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace } from '../../store/action/index';
-
+import MainText from '../../components/UI/MainText/MainText';
+import HeadingText from '../../components/UI/HeadingText/HeadingText';
+import PlaceInput from '../../components/PlaceInput/PlaceInput';
+import PickImage from '../../components/PickImage/PickImage';
+import PickLocation from '../../components/PickLocation/PickLocation';
 class ShareScreenPlace extends Component {
     constructor(props) {
         super(props);
@@ -27,9 +30,17 @@ class ShareScreenPlace extends Component {
     
     render(){
         return(
-            <View>
-                <PlaceInput placeSubmitHandler={this.placeAddedHandler} />
-            </View>
+            <ScrollView>
+                <View style={styles.container}>
+                    <MainText>
+                        <HeadingText>Share place with us!</HeadingText>
+                    </MainText>
+                    <PickImage />
+                    <PickLocation />
+                    <PlaceInput />
+                    <Button title="Share Place" />
+                </View>
+            </ScrollView>
         )
     }
 }
@@ -39,4 +50,25 @@ const mapDistpatchToProps = (dispatch) => {
         onPlaceAdded: (place) => dispatch(addPlace(place))
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    placeholder: {
+        borderWidth: 1,
+        borderColor: '#eee',
+        backgroundColor: '#ddd',
+        width: '80%',
+        height: 200
+    },
+    button: {
+        margin: 8
+    },
+    imagePlaceHolder: {
+        width: '100%',
+        height: '100%'
+    }
+})
 export default connect(null, mapDistpatchToProps)(ShareScreenPlace);
