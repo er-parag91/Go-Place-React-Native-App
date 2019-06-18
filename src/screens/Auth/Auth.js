@@ -13,9 +13,15 @@ class Auth extends Component {
         this.state = {
             viewMode: Dimensions.get("window").height > 500 ? 'portrait' : 'landscape'
         }
-        Dimensions.addEventListener('change', () => {
-            this.setState({ viewMode: Dimensions.get("window").height > 500 ? 'portrait' : 'landscape' })
-        })
+        Dimensions.addEventListener('change', this.updateStyle)
+    }
+
+    componentWillUnmount = () => {
+        Dimensions.removeEventListener('change', this.updateStyle)
+    }
+
+    updateStyle = () => {
+        this.setState({ viewMode: Dimensions.get("window").height > 500 ? 'portrait' : 'landscape' })
     }
 
     LoginHandler = () => {
