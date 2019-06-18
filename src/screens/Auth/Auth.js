@@ -18,6 +18,7 @@ class Auth extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            authMode: 'login',
             viewMode: Dimensions.get("window").height > 500 ? 'portrait' : 'landscape',
             controls: {
                 email: {
@@ -55,6 +56,12 @@ class Auth extends Component {
 
     updateStyle = () => {
         this.setState({ viewMode: Dimensions.get("window").height > 500 ? 'portrait' : 'landscape' })
+    }
+
+    authModeSwitchHandler = () => {
+        this.setState(prevState => {
+            return { authMode: prevState.authMode === 'login' ? 'signup' : 'login' }
+        })
     }
 
     LoginHandler = () => {
@@ -129,7 +136,9 @@ class Auth extends Component {
                 <View style={styles.container}>
                     <View style={styles.login}>
                         {headingText}
-                        <ButtonWithBackground color="#29aaf4" onPress={() => alert('Hello')}>Switch to Login</ButtonWithBackground>
+                        <ButtonWithBackground color="#29aaf4" onPress={this.authModeSwitchHandler}>
+                            Switch to { this.state.authMode === 'login' ? 'Sign up' : 'login' }
+                        </ButtonWithBackground>
                         <View style={styles.inputContainer}>
                             <DefaultInput
                                 placeholder="E-mail Address"
@@ -140,9 +149,22 @@ class Auth extends Component {
                                 touched={controls.email.touched}
                             />
                             <View
-                                style={viewMode === 'portrait' ? styles.portraitPasswordContainer : styles.landscapePasswordContainer}
+                                style={
+                                    viewMode === 'portrait' || this.state.authMode === 'login' 
+                                    ? 
+                                    styles.portraitPasswordContainer 
+                                    : 
+                                    styles.landscapePasswordContainer
+                                    }
                             >
-                                <View style={viewMode === 'portrait' ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper}>
+                                <View style={
+                                        viewMode === 'portrait' || this.state.authMode === 'login'
+                                        ?
+                                        styles.portraitPasswordWrapper
+                                        :
+                                        styles.landscapePasswordWrapper
+                                        }
+                                >
                                     <DefaultInput
                                         placeholder="Password"
                                         style={styles.input}
@@ -152,6 +174,7 @@ class Auth extends Component {
                                         touched={controls.password.touched}
                                     />
                                 </View>
+                                {this.state.authMode === 'signup' && 
                                 <View style={viewMode === 'portrait' ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper}>
                                     <DefaultInput
                                         placeholder="Confirm Password"
@@ -161,7 +184,7 @@ class Auth extends Component {
                                         valid={!controls.confirmPassword.valid}
                                         touched={controls.confirmPassword.touched}
                                     />
-                                </View>
+                                </View>}
                             </View>
                         </View>
                         <ButtonWithBackground
