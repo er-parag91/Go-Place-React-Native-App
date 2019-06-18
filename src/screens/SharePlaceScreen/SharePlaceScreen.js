@@ -8,11 +8,11 @@ import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import PickImage from '../../components/PickImage/PickImage';
 import PickLocation from '../../components/PickLocation/PickLocation';
 class ShareScreenPlace extends Component {
-    state={
-        placeName: ''
-    }
     constructor(props) {
         super(props);
+            this.state={
+                placeName: ''
+            }
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
 
