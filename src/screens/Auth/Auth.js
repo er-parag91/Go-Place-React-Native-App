@@ -28,7 +28,7 @@ class Auth extends Component {
         if (viewMode === 'portrait') {
             headingText = (
                 <MainText>
-                    <HeadingText>Please Log In</HeadingText>
+                    <HeadingText style={{ color: '#ddd' }}>Please Log In</HeadingText>
                 </MainText>
             );
         }
