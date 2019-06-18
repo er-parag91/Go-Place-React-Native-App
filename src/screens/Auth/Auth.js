@@ -6,16 +6,43 @@ import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import MainText from '../../components/UI/MainText/MainText';
 import backgroundImage from '../../Assets/background.jpg';
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
+import validate from '../../utility/validation';
 
 class Auth extends Component {
     static navigatorStyle = {
         navBarBackgroundColor: '#4d4d4d'
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            viewMode: Dimensions.get("window").height > 500 ? 'portrait' : 'landscape'
+            viewMode: Dimensions.get("window").height > 500 ? 'portrait' : 'landscape',
+            controls: {
+                email: {
+                    value: '',
+                    valid: false,
+                    touched: false,
+                    validationRules: {
+                        isEmail: true
+                    }
+                },
+                password: {
+                    value: '',
+                    valid: false,
+                    touched: false,
+                    validationRules: {
+                        minLength: 6
+                    }
+                },
+                confirmPassword: {
+                    value: '',
+                    valid: false,
+                    touched: false,
+                    validationRules: {
+                        toEqual: 'password'
+                    }
+                }
+            }
         }
         Dimensions.addEventListener('change', this.updateStyle)
     }
@@ -32,7 +59,57 @@ class Auth extends Component {
         StartMainTabs();
     }
 
-    render(){
+    inputChangedHandler = (key, value) => {
+        let connectedValue = {};
+
+        if (this.state.controls[key].validationRules.toEqual) {
+            const equalControl = 'password';
+            const equalValue = this.state.controls[equalControl].value;
+            connectedValue = {
+                ...connectedValue,
+                toEqual: equalValue
+            }
+        }
+
+        if (key === 'password') {
+            const equalControl = 'password';
+            const equalValue = this.state.controls[equalControl].value;
+
+            connectedValue = {
+                ...connectedValue,
+                toEqual: value
+            }
+        }
+
+        this.setState(prevState => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    confirmPassword: {
+                        ...prevState.controls.confirmPassword,
+                        valid: 
+                            key === 'password' 
+                            ?
+                            validate(
+                                prevState.controls.confirmPassword.value,
+                                prevState.controls.confirmPassword.validationRules,
+                                connectedValue
+                            )
+                            :
+                            prevState.controls.confirmPassword.valid
+                    },
+                    [key]: {
+                        ...prevState.controls[key],
+                        value: value,
+                        valid: validate(value, prevState.controls[key].validationRules, connectedValue),
+                        touched: true
+                    },
+                }
+            }
+        })
+    }
+
+    render() {
         let headingText = null;
         const { viewMode } = this.state;
         if (viewMode === 'portrait') {
@@ -42,26 +119,54 @@ class Auth extends Component {
                 </MainText>
             );
         }
-        return(
+        const { controls } = this.state;
+        return (
             <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <View style={styles.login}>
                         {headingText}
                         <ButtonWithBackground color="#29aaf4" onPress={() => alert('Hello')}>Switch to Login</ButtonWithBackground>
                         <View style={styles.inputContainer}>
-                            <DefaultInput placeholder="E-mail Address" style={styles.input} />
-                            <View 
-                                style={ viewMode === 'portrait' ? styles.portraitPasswordContainer : styles.landscapePasswordContainer }
+                            <DefaultInput
+                                placeholder="E-mail Address"
+                                style={styles.input}
+                                value={controls.email.value}
+                                onChangeText={(value) => this.inputChangedHandler('email', value)}
+                                valid={!controls.email.valid}
+                                touched={controls.email.touched}
+                            />
+                            <View
+                                style={viewMode === 'portrait' ? styles.portraitPasswordContainer : styles.landscapePasswordContainer}
                             >
-                                <View style={ viewMode === 'portrait' ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper }>
-                                    <DefaultInput placeholder="Password" style={styles.input} />
+                                <View style={viewMode === 'portrait' ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper}>
+                                    <DefaultInput
+                                        placeholder="Password"
+                                        style={styles.input}
+                                        value={controls.password.value}
+                                        onChangeText={(value) => this.inputChangedHandler('password', value)}
+                                        valid={!controls.password.valid}
+                                        touched={controls.password.touched}
+                                    />
                                 </View>
-                                <View style={ viewMode === 'portrait' ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper }>
-                                    <DefaultInput placeholder="Confirm Password" style={styles.input} />
+                                <View style={viewMode === 'portrait' ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper}>
+                                    <DefaultInput
+                                        placeholder="Confirm Password"
+                                        style={styles.input}
+                                        value={controls.confirmPassword.value}
+                                        onChangeText={(value) => this.inputChangedHandler('confirmPassword', value)}
+                                        valid={!controls.confirmPassword.valid}
+                                        touched={controls.confirmPassword.touched}
+                                    />
                                 </View>
                             </View>
                         </View>
-                        <ButtonWithBackground onPress={this.LoginHandler} color="#29aaf4">Login</ButtonWithBackground>
+                        <ButtonWithBackground
+                            onPress={this.LoginHandler}
+                            color="#29aaf4"
+                            disabled={!controls.email.valid || !controls.password.valid || !controls.confirmPassword.valid}
+                        >
+                        Login
+                        </ButtonWithBackground>
                     </View>
                 </View>
             </ImageBackground>
@@ -72,7 +177,7 @@ class Auth extends Component {
 const styles = StyleSheet.create({
     backgroundImage: {
         width: '100%',
-        flex:1
+        flex: 1
     },
     container: {
         flex: 1,
