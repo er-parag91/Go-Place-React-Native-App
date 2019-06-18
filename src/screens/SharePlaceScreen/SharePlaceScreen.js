@@ -8,9 +8,11 @@ import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import PickImage from '../../components/PickImage/PickImage';
 import PickLocation from '../../components/PickLocation/PickLocation';
 class ShareScreenPlace extends Component {
+    state={
+        placeName: ''
+    }
     constructor(props) {
         super(props);
-
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
 
@@ -22,6 +24,10 @@ class ShareScreenPlace extends Component {
                 })
             }
         }
+    }
+
+    onPlaceNameChangeHandler = (event) => {
+        this.setState({ placeName: event })
     }
 
     placeAddedHandler = (placeName) => {
@@ -37,8 +43,8 @@ class ShareScreenPlace extends Component {
                     </MainText>
                     <PickImage />
                     <PickLocation />
-                    <PlaceInput />
-                    <Button title="Share Place" />
+                    <PlaceInput placeName={this.state.placeName} onChangeHandler={this.onPlaceNameChangeHandler} />
+                    <Button title="Share Place" onPress={() => this.placeAddedHandler(this.state.placeName)} />
                 </View>
             </ScrollView>
         )
