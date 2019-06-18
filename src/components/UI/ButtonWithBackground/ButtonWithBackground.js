@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, View, StyleSheet, TouchableNativeFeedback, Plat
 const ButtonWithBackground = props => {
 
     const content = (
-        <View style={[styles.button, { backgroundColor: props.color }]}>
+        <View style={[styles.button, { backgroundColor: props.color }, props.disabled ? styles.disabled : null]}>
             <Text>{props.children}</Text>
         </View>
     )
@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 5,
         borderRadius: 5,
+    },
+    disabled: {
+        backgroundColor: '#eee',
+        color: '#aaa'
     }
 })
 
