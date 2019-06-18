@@ -6,7 +6,7 @@ const ListItem = (props) => {
         <TouchableOpacity onPress={props.onItemPressed}>
             <View style={styles.ListItem}>
                 <Image resizeMode="cover" source={props.placeImage}  style={styles.placeImage} />
-                <Text style={{ marginLeft: 8 }}>{props.placeName}</Text>
+                <Text style={{ marginLeft: 8, color: 'white' }}>{props.placeName}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -16,11 +16,12 @@ const styles = StyleSheet.create({
     ListItem: {
         width: '100%',
         padding: 10,
-        color: 'red',
-        backgroundColor: '#eee',
+        backgroundColor: 'transparent',
         marginBottom: 5,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderBottomColor: '#eee',
+        borderBottomWidth: 0.4
     },
     placeImage: {
         marginRight: 8,

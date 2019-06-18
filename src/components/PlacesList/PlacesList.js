@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     placesContainer: {
         width: '100%',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-start'
     }
 });
 
