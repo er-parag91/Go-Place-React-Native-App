@@ -8,6 +8,10 @@ import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import PickImage from '../../components/PickImage/PickImage';
 import PickLocation from '../../components/PickLocation/PickLocation';
 class ShareScreenPlace extends Component {
+    static navigatorStyle = {
+        navBarButtonColor: '#33cc33',
+        navBarBackgroundColor: '#4d4d4d'
+    }
     constructor(props) {
         super(props);
             this.state={

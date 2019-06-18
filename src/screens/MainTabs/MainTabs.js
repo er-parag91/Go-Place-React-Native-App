@@ -41,10 +41,18 @@ const StartMainTabs = () => {
                     }
                 }
             ],
+            tabsStyle: {
+                tabBarSelectedButtonColor: '#33cc33',
+                tabBarBackgroundColor: '#4d4d4d',
+            },
             drawer: {
                 left: {
                     screen: 'Go-places.SideDrawer'
                 }
+            },
+            // for android tab styling
+            appStyle: {
+                tabBarSelectedButtonColor: '#33cc33'
             }
         })
     })

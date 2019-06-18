@@ -8,6 +8,10 @@ import backgroundImage from '../../Assets/background.jpg';
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 
 class Auth extends Component {
+    static navigatorStyle = {
+        navBarBackgroundColor: '#4d4d4d'
+    }
+
     constructor(props){
         super(props);
         this.state = {
