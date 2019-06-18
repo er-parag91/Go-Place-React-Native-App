@@ -31,7 +31,9 @@ class ShareScreenPlace extends Component {
     }
 
     placeAddedHandler = (placeName) => {
-        this.props.onPlaceAdded(placeName);
+        if (placeName.trim() !== '') {
+            this.props.onPlaceAdded(placeName);
+        }
     }
     
     render(){
@@ -44,7 +46,7 @@ class ShareScreenPlace extends Component {
                     <PickImage />
                     <PickLocation />
                     <PlaceInput placeName={this.state.placeName} onChangeHandler={this.onPlaceNameChangeHandler} />
-                    <Button title="Share Place" onPress={() => this.placeAddedHandler(this.state.placeName)} />
+                    <Button disabled={!this.state.placeName} title="Share Place" onPress={() => this.placeAddedHandler(this.state.placeName)} />
                 </View>
             </ScrollView>
         )
