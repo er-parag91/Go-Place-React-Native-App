@@ -24,6 +24,14 @@ class ShareScreenPlace extends Component {
                     validationRules: {
                         notEmpty: true
                     }
+                },
+                placeDescription: {
+                    value: '',
+                    valid: false,
+                    touched: false,
+                    validationRules: {
+                        notEmpty: true
+                    }
                 }
             }
         }
@@ -40,24 +48,42 @@ class ShareScreenPlace extends Component {
         }
     }
 
-    onPlaceNameChangeHandler = (value) => {
+    onPlaceNameChangeHandler = (key, value) => {
         this.setState(prevState => {
             return {
                 controls: {
                     ...prevState.controls,
-                    placeName: {
-                        ...prevState.controls.placeName,
-                        valid: validate(value, prevState.controls.placeName.validationRules),
+                    [key]: {
+                        ...prevState.controls[key],
                         value: value,
+                        valid: validate(value, prevState.controls[key].validationRules),
                         touched: true
-                    }
+                    },
                 }
             }
         })
     }
 
-    placeAddedHandler = (placeName) => {
-            this.props.onPlaceAdded(placeName.value);
+    placeAddedHandler = (placeName, placeDescription) => {
+            this.props.onPlaceAdded(placeName.value, placeDescription.value);
+            this.setState({ controls: {
+                placeName: {
+                    value: '',
+                    valid: false,
+                    touched: false,
+                    validationRules: {
+                        notEmpty: true
+                    }
+                },
+                placeDescription: {
+                    value: '',
+                    valid: false,
+                    touched: false,
+                    validationRules: {
+                        notEmpty: true
+                    }
+                }
+            }})
     }
     
     render(){
@@ -69,8 +95,9 @@ class ShareScreenPlace extends Component {
                     </MainText>
                     <PickImage />
                     <PickLocation />
-                    <PlaceInput placeName={this.state.controls.placeName} onChangeHandler={this.onPlaceNameChangeHandler} />
-                    <Button disabled={!this.state.controls.placeName.valid} title="Share Place" onPress={() => this.placeAddedHandler(this.state.controls.placeName)} />
+                    <PlaceInput placeholder="Place Name" placeName={this.state.controls.placeName} onChangeHandler={(value) => this.onPlaceNameChangeHandler('placeName', value)} />
+                    <PlaceInput placeholder="Description" placeName={this.state.controls.placeDescription} onChangeHandler={(value) => this.onPlaceNameChangeHandler('placeDescription', value)} />
+                    <Button disabled={!this.state.controls.placeName.valid} title="Share Place" onPress={() => this.placeAddedHandler(this.state.controls.placeName, this.state.controls.placeDescription)} />
                 </KeyboardAvoidingView>
             </ScrollView>
         )
@@ -79,7 +106,7 @@ class ShareScreenPlace extends Component {
 
 const mapDistpatchToProps = (dispatch) => {
     return {
-        onPlaceAdded: (place) => dispatch(addPlace(place))
+        onPlaceAdded: (placeName, placeDescription) => dispatch(addPlace(placeName, placeDescription))
     }
 }
 
