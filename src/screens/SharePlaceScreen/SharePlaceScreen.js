@@ -57,7 +57,7 @@ class ShareScreenPlace extends Component {
     }
 
     placeAddedHandler = (placeName) => {
-            this.props.onPlaceAdded(placeName);
+            this.props.onPlaceAdded(placeName.value);
     }
     
     render(){
@@ -70,7 +70,7 @@ class ShareScreenPlace extends Component {
                     <PickImage />
                     <PickLocation />
                     <PlaceInput placeName={this.state.controls.placeName} onChangeHandler={this.onPlaceNameChangeHandler} />
-                    <Button disabled={!this.state.controls.placeName.valid} title="Share Place" onPress={() => this.placeAddedHandler(this.state.placeName)} />
+                    <Button disabled={!this.state.controls.placeName.valid} title="Share Place" onPress={() => this.placeAddedHandler(this.state.controls.placeName)} />
                 </KeyboardAvoidingView>
             </ScrollView>
         )

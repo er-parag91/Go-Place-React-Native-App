@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     login: {
-        backgroundColor: '#00000066',
+        backgroundColor: '#00000088',
         width: '90%',
         alignItems: 'center',
         paddingTop: 25,

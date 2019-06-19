@@ -4,7 +4,32 @@ import {
 } from '../action/actionTypes';
 
 const initialState = {
-    places: [],
+    places: [{
+        place: 'San Francisco',
+        key: Math.random(),
+        placeImage: {
+            uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+        }
+    },
+    {
+        place: 'New Orleans',
+        key: Math.random(),
+        placeImage: {
+            uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+        }
+    },{
+        place: 'Chicago',
+        key: Math.random(),
+        placeImage: {
+            uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+        }
+    },{
+        place: 'Miami',
+        key: Math.random(),
+        placeImage: {
+            uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+        }
+    }],
     selectedPlace: null
 }
 
