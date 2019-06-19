@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Button, Text, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace } from '../../store/action/index';
 import MainText from '../../components/UI/MainText/MainText';
@@ -7,6 +7,7 @@ import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import PickImage from '../../components/PickImage/PickImage';
 import PickLocation from '../../components/PickLocation/PickLocation';
+import validate from '../../utility/validation';
 class ShareScreenPlace extends Component {
     static navigatorStyle = {
         navBarButtonColor: '#33cc33',
@@ -14,9 +15,18 @@ class ShareScreenPlace extends Component {
     }
     constructor(props) {
         super(props);
-            this.state={
-                placeName: ''
+        this.state = {
+            controls: {
+                placeName: {
+                    value: '',
+                    valid: false,
+                    touched: false,
+                    validationRules: {
+                        notEmpty: true
+                    }
+                }
             }
+        }
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
 
@@ -30,28 +40,38 @@ class ShareScreenPlace extends Component {
         }
     }
 
-    onPlaceNameChangeHandler = (event) => {
-        this.setState({ placeName: event })
+    onPlaceNameChangeHandler = (value) => {
+        this.setState(prevState => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    placeName: {
+                        ...prevState.controls.placeName,
+                        valid: validate(value, prevState.controls.placeName.validationRules),
+                        value: value,
+                        touched: true
+                    }
+                }
+            }
+        })
     }
 
     placeAddedHandler = (placeName) => {
-        if (placeName.trim() !== '') {
             this.props.onPlaceAdded(placeName);
-        }
     }
     
     render(){
         return(
             <ScrollView>
-                <View style={styles.container}>
+                <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={60} style={styles.container}>
                     <MainText>
                         <HeadingText>Share place with us!</HeadingText>
                     </MainText>
                     <PickImage />
                     <PickLocation />
-                    <PlaceInput placeName={this.state.placeName} onChangeHandler={this.onPlaceNameChangeHandler} />
-                    <Button disabled={!this.state.placeName} title="Share Place" onPress={() => this.placeAddedHandler(this.state.placeName)} />
-                </View>
+                    <PlaceInput placeName={this.state.controls.placeName} onChangeHandler={this.onPlaceNameChangeHandler} />
+                    <Button disabled={!this.state.controls.placeName.valid} title="Share Place" onPress={() => this.placeAddedHandler(this.state.placeName)} />
+                </KeyboardAvoidingView>
             </ScrollView>
         )
     }

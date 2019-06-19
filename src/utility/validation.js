@@ -16,6 +16,10 @@ const validate = (value, rules, connectedValue) => {
                 isValid = isValid && isEqualValidator(value, connectedValue[rule])
                 break;
                 
+            case 'notEmpty':
+                isValid = isValid && isEmptyValidator(value)
+                break;
+
             default:
                 isValid = true;
         }
@@ -35,4 +39,8 @@ const isEqualValidator = (value, compareValue) => {
     return value === compareValue;
 }
 
+const isEmptyValidator = value => {
+    return value.trim() !== '';
+}
+ 
 export default  validate;
