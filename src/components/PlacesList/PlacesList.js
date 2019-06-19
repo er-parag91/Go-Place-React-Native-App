@@ -13,7 +13,7 @@ const PlacesList = (props) => {
             extraData={props.places}
             renderItem={(info) => {
                return <ListItem
-                    placeName={info.item.place}
+                    placeName={info.item.placeName}
                     placeImage={info.item.placeImage}
                     onItemPressed={() => props.onPlaceSelected(info.item.key)}
                 />

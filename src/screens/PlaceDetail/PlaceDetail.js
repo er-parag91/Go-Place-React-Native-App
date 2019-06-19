@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Platform, Dimensions, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { deletePlace} from '../../store/action/index';
 
@@ -40,7 +39,8 @@ class PlaceDetail extends Component {
 
                 <View style={styles.subContainer}>
                     <View>
-                        <Text style={styles.title}>{this.props.selectedPlace.place}</Text>
+                        <Text style={styles.description}>{this.props.selectedPlace.placeDescription}</Text>
+                        <Text style={styles.description}>{this.props.selectedPlace.placeDescription}</Text>
                     </View>
                 </View>
             </View>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
-    title: {
+    description: {
         textAlign: 'left',
         fontWeight: '200',
     },
