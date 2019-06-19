@@ -5,26 +5,30 @@ import {
 
 const initialState = {
     places: [{
-        place: 'San Francisco',
+        placeName: 'San Francisco',
+        placeDescription: 'whatever',
         key: Math.random(),
         placeImage: {
             uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
         }
     },
     {
-        place: 'New Orleans',
+        placeName: 'New Orleans',
+        placeDescription: 'whatever',
         key: Math.random(),
         placeImage: {
             uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
         }
     },{
-        place: 'Chicago',
+        placeName: 'Chicago',
+        placeDescription: 'whatever',
         key: Math.random(),
         placeImage: {
             uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
         }
     },{
-        place: 'Miami',
+        placeName: 'Miami',
+        placeDescription: 'whatever',
         key: Math.random(),
         placeImage: {
             uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
@@ -39,7 +43,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 places: state.places.concat({
-                    place: action.place,
+                    placeName: action.placeName,
+                    placeDescription: action.placeDescription,
                     key: Math.random(),
                     placeImage: {
                         uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
