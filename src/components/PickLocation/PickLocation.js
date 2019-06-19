@@ -35,7 +35,8 @@ class PickLocation extends Component {
                         ...prevState.focusedLocation,
                         latitude: pos.coords.latitude,
                         longitude: pos.coords.longitude
-                    }
+                    },
+                    pickedLocation: true,
                 }
             })
         })
