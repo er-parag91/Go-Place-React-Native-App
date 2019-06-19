@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, Text, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Button, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace } from '../../store/action/index';
 import MainText from '../../components/UI/MainText/MainText';
@@ -95,8 +95,19 @@ class ShareScreenPlace extends Component {
                     </MainText>
                     <PickImage />
                     <PickLocation />
-                    <PlaceInput placeholder="Place Name" placeName={this.state.controls.placeName} onChangeHandler={(value) => this.onPlaceNameChangeHandler('placeName', value)} />
-                    <PlaceInput placeholder="Description" placeName={this.state.controls.placeDescription} onChangeHandler={(value) => this.onPlaceNameChangeHandler('placeDescription', value)} />
+                    <PlaceInput
+                        placeholder="Place Name"
+                        placeName={this.state.controls.placeName}
+                        onChangeHandler={(value) => this.onPlaceNameChangeHandler('placeName', value)}
+                    />
+                    <TextInput
+                        placeholder="Description (optional)"
+                        value={this.state.controls.placeDescription.value}
+                        onChangeText={(value) => this.onPlaceNameChangeHandler('placeDescription', value)}
+                        multiline={true}
+                        numberOfLines={5}
+                        style={styles.textArea}
+                    />
                     <Button disabled={!this.state.controls.placeName.valid} title="Share Place" onPress={() => this.placeAddedHandler(this.state.controls.placeName, this.state.controls.placeDescription)} />
                 </KeyboardAvoidingView>
             </ScrollView>
@@ -128,6 +139,17 @@ const styles = StyleSheet.create({
     imagePlaceHolder: {
         width: '100%',
         height: '100%'
+    },
+    textArea: {
+        height:120,
+        textAlign: 'left',
+        width: '100%',
+        borderTopWidth: 1,
+        borderBottomWidth : 1,
+        borderColor: '#eee',
+        padding: 10,
+        marginTop: 10,
+        marginBottom: 10
     }
 })
 export default connect(null, mapDistpatchToProps)(ShareScreenPlace);
