@@ -31,6 +31,11 @@ class PlaceDetail extends Component {
     }
 
     render() {
+        if (!this.props.selectedPlace.placeDescription) {
+            placeinfo = "No information available"
+        } else {
+            placeinfo = this.props.selectedPlace.placeDescription
+        }
         return (
             <View style={[styles.container, this.state.viewMode === 'portrait' ? styles.portraitContainer : styles.landscapeContainer]}>
                 <View style={styles.subContainer}>
@@ -39,8 +44,8 @@ class PlaceDetail extends Component {
 
                 <View style={styles.subContainer}>
                     <View>
-                        <Text style={styles.description}>{this.props.selectedPlace.placeDescription}</Text>
-                        <Text style={styles.description}>{this.props.selectedPlace.placeDescription}</Text>
+                        <Text style={styles.title}>Place Information</Text>
+                        <Text style={styles.description}>{placeinfo}</Text>
                     </View>
                 </View>
             </View>
@@ -61,11 +66,17 @@ const styles = StyleSheet.create({
     },
     subContainer: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingRight: 8
     },
     description: {
         textAlign: 'left',
         fontWeight: '200',
+    },
+    title: {
+        textAlign: 'left',
+        fontWeight: "500",
+        marginBottom: 15
     },
     placeImage: {
         height: '100%',
