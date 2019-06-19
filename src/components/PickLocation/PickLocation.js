@@ -25,6 +25,11 @@ class PickLocation extends Component {
                 pickedLocation: true
             }
         })
+        this.map.animateToRegion({
+            ...this.state.focusedLocation,
+            latitude: coords.latitude,
+            longitude: coords.longitude
+        })
         this.props.onLocationPick({
             latitude: coords.latitude, longitude:coords.longitude
         })
@@ -56,9 +61,9 @@ class PickLocation extends Component {
             <View style={styles.container}>
                 <MapView
                     initialRegion={this.state.focusedLocation}
-                    region={this.state.focusedLocation}
                     style={styles.map}
                     onPress={this.pickLocationHandler}
+                    ref={ref => this.map = ref}
                 >
                     {marker}
                 </MapView>
