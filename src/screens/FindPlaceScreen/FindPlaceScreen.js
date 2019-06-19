@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Animated } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Animated, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import PlacesList from '../../components/PlacesList/PlacesList';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class FindPlaceScreen extends Component {
     static navigatorStyle = {
@@ -32,7 +33,7 @@ class FindPlaceScreen extends Component {
     placesLoadedHandler = () => {
         Animated.timing(this.state.placesAnimation, {
             toValue: 1,
-            duration: 500,
+            duration: 5,
             useNativeDriver: true
         }).start()
     }
@@ -40,7 +41,7 @@ class FindPlaceScreen extends Component {
     placesSearchHandler = () => {
         Animated.timing(this.state.removeAnimation, {
             toValue: 0,
-            duration: 500,
+            duration: 5,
             useNativeDriver: true
         }).start(() => {
             this.setState({
@@ -54,12 +55,24 @@ class FindPlaceScreen extends Component {
         const selectedPlace = this.props.places.find(place => {
             return place.key === key;
         })
-        this.props.navigator.push({
-            screen: 'Go-places.PlaceDetail',
-            title: selectedPlace.place,
-            passProps: {
-                selectedPlace: selectedPlace
-            }
+        Promise.all([
+            Icon.getImageSource(Platform.OS === 'android' ? "md-trash" : "ios-trash", 30)
+        ]).then(sources => {
+            this.props.navigator.push({
+                screen: 'Go-places.PlaceDetail',
+                title: selectedPlace.place,
+                passProps: {
+                    selectedPlace: selectedPlace
+                },
+                navigatorButtons: {
+                    rightButtons: [
+                        {
+                            icon: sources[0],
+                            id: 'deleteButton'
+                        }
+                    ]
+                }
+            })
         })
     }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Platform, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Platform, Dimensions, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { deletePlace} from '../../store/action/index';
@@ -10,11 +10,15 @@ class PlaceDetail extends Component {
         this.state = {
             viewMode: 'portrait'
         }
-        Dimensions.addEventListener('change', this.updateStyle)
+        Dimensions.addEventListener('change', this.updateStyle);
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
-    placeDeleteHandler = () => {
-        this.props.onPlaceDelete(this.props.selectedPlace.key);
-        this.props.navigator.pop();
+
+    onNavigatorEvent = (event) => {
+        if (event.id === 'deleteButton') {
+            this.props.onPlaceDelete(this.props.selectedPlace.key);
+            this.props.navigator.pop();
+        }
     }
 
     componentWillUnmount(){
@@ -38,17 +42,6 @@ class PlaceDetail extends Component {
                     <View>
                         <Text style={styles.title}>{this.props.selectedPlace.place}</Text>
                     </View>
-                    <View>
-                        <TouchableOpacity onPress={this.placeDeleteHandler}>
-                            <View style={styles.deleteButton}>
-                                <Icon
-                                    size={30}
-                                    name={Platform.OS === 'android' ? "md-trash" : "ios-trash"}
-                                    color="red"
-                                />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </View>
         )
@@ -71,9 +64,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     title: {
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontSize: 28
+        textAlign: 'left',
+        fontWeight: '200',
     },
     placeImage: {
         height: '100%',
