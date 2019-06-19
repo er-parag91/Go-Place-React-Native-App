@@ -60,7 +60,7 @@ class FindPlaceScreen extends Component {
         ]).then(sources => {
             this.props.navigator.push({
                 screen: 'Go-places.PlaceDetail',
-                title: selectedPlace.place,
+                title: selectedPlace.placeName,
                 passProps: {
                     selectedPlace: selectedPlace
                 },
