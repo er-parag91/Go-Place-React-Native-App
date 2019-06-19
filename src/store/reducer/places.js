@@ -9,7 +9,7 @@ const initialState = {
         placeDescription: 'whatever',
         key: Math.random(),
         placeImage: {
-            uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+            uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
         }
     },
     {
@@ -17,21 +17,21 @@ const initialState = {
         placeDescription: 'whatever',
         key: Math.random(),
         placeImage: {
-            uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+            uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
         }
     },{
         placeName: 'Chicago',
         placeDescription: 'whatever',
         key: Math.random(),
         placeImage: {
-            uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+            uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
         }
     },{
         placeName: 'Miami',
         placeDescription: 'whatever',
         key: Math.random(),
         placeImage: {
-            uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+            uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
         }
     }],
     selectedPlace: null
@@ -47,7 +47,7 @@ const reducer = (state = initialState, action) => {
                     placeDescription: action.placeDescription,
                     key: Math.random(),
                     placeImage: {
-                        uri: 'https://images.pexels.com/photos/355296/pexels-photo-355296.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500'
+                        uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
                     }
                 })
             }
