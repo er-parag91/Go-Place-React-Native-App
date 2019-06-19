@@ -17,6 +17,7 @@ import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
 
+import com.airbnb.android.react.maps.MapsPackage;
 
 public class MainApplication extends NavigationApplication {
       
@@ -47,5 +48,13 @@ public class MainApplication extends NavigationApplication {
       @Override
       public List<ReactPackage> createAdditionalReactPackages() {
           return getPackages();
+      }
+
+      @Override
+      protected List<ReactPackage> getPackages() {
+          return Arrays.<ReactPackage>asList(
+                  new MainReactPackage(),
+                  new MapsPackage()
+          );
       }
   }
