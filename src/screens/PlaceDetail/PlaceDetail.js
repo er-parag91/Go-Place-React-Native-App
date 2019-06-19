@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { deletePlace} from '../../store/action/index';
+import MapView from 'react-native-maps';
 
 class PlaceDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            viewMode: 'portrait'
+            viewMode: 'portrait',
         }
         Dimensions.addEventListener('change', this.updateStyle);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
@@ -31,6 +32,7 @@ class PlaceDetail extends Component {
     }
 
     render() {
+        console.warn(this.props.selectedPlace)
         if (!this.props.selectedPlace.placeDescription) {
             placeinfo = "No information available"
         } else {
@@ -43,8 +45,22 @@ class PlaceDetail extends Component {
                 </View>
 
                 <View style={styles.subContainer}>
+                    <MapView
+                        initialRegion={{
+                            ...this.props.selectedPlace.location,
+                            latitudeDelta: 0.0122,
+                            longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122
+                        }}
+                        style={styles.map}
+                    >
+                        <MapView.Marker coordinate={this.props.selectedPlace.location}/>
+                    </MapView>
+                </View>
+
+                <View style={styles.subContainer}>
                     <View>
                         <Text style={styles.title}>Place Information</Text>
+                        <Text style={styles.name}>{this.props.selectedPlace.placeName}</Text>
                         <Text style={styles.description}>{placeinfo}</Text>
                     </View>
                 </View>
@@ -67,7 +83,10 @@ const styles = StyleSheet.create({
     subContainer: {
         flex: 1,
         justifyContent: 'center',
-        paddingRight: 8
+        margin: 5
+    },
+    map: {
+        ...StyleSheet.absoluteFillObject
     },
     description: {
         textAlign: 'left',
@@ -77,6 +96,11 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontWeight: "500",
         marginBottom: 15
+    },
+    name: {
+        textAlign: 'left',
+        fontWeight: "300",
+        marginBottom: 8
     },
     placeImage: {
         height: '100%',

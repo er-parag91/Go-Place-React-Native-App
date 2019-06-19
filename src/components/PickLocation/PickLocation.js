@@ -25,20 +25,25 @@ class PickLocation extends Component {
                 pickedLocation: true
             }
         })
+        this.props.onLocationPick({
+            latitude: coords.latitude, longitude:coords.longitude
+        })
     }
 
     getLocationHandler = () => {
         navigator.geolocation.getCurrentPosition(pos => {
-            this.setState(prevState => {
-                return {
-                    focusedLocation: {
-                        ...prevState.focusedLocation,
+            const coordsEvent = {
+                nativeEvent: {
+                    coordinate: {
                         latitude: pos.coords.latitude,
                         longitude: pos.coords.longitude
-                    },
-                    pickedLocation: true,
+                    }
                 }
-            })
+            }
+            this.pickLocationHandler(coordsEvent);
+        }, err => {
+            console.warn(err)
+            alert('Fetching current position failed, Please pick your location manually')
         })
     }
 
