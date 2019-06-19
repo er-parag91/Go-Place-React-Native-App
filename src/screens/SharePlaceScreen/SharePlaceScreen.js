@@ -109,7 +109,7 @@ class ShareScreenPlace extends Component {
     render(){
         return(
             <ScrollView>
-                <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={60} style={styles.container}>
+                <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} style={styles.container}>
                     <MainText>
                         <HeadingText>Share place with us!</HeadingText>
                     </MainText>
