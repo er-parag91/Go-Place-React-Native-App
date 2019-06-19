@@ -4,36 +4,7 @@ import {
 } from '../action/actionTypes';
 
 const initialState = {
-    places: [{
-        placeName: 'San Francisco',
-        placeDescription: 'whatever',
-        key: Math.random(),
-        placeImage: {
-            uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
-        }
-    },
-    {
-        placeName: 'New Orleans',
-        placeDescription: 'whatever',
-        key: Math.random(),
-        placeImage: {
-            uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
-        }
-    },{
-        placeName: 'Chicago',
-        placeDescription: 'whatever',
-        key: Math.random(),
-        placeImage: {
-            uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
-        }
-    },{
-        placeName: 'Miami',
-        placeDescription: 'whatever',
-        key: Math.random(),
-        placeImage: {
-            uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
-        }
-    }],
+    places: [],
     selectedPlace: null
 }
 
@@ -45,6 +16,7 @@ const reducer = (state = initialState, action) => {
                 places: state.places.concat({
                     placeName: action.placeName,
                     placeDescription: action.placeDescription,
+                    location: action.location,
                     key: Math.random(),
                     placeImage: {
                         uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'

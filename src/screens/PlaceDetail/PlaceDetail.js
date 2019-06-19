@@ -7,7 +7,7 @@ class PlaceDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            viewMode: 'portrait'
+            viewMode: 'portrait',
         }
         Dimensions.addEventListener('change', this.updateStyle);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
@@ -31,6 +31,7 @@ class PlaceDetail extends Component {
     }
 
     render() {
+        console.warn(this.props.selectedPlace)
         if (!this.props.selectedPlace.placeDescription) {
             placeinfo = "No information available"
         } else {
