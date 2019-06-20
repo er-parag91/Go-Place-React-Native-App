@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
                     location: action.location,
                     key: Math.random(),
                     placeImage: {
-                        uri: 'http://www.transindiatravels.com/wp-content/uploads/visakhapatnam-1.jpg'
+                        uri: action.placeImage.uri
                     }
                 })
             }

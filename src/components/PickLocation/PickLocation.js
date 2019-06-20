@@ -47,7 +47,6 @@ class PickLocation extends Component {
             }
             this.pickLocationHandler(coordsEvent);
         }, err => {
-            console.warn(err)
             alert('Fetching current position failed, Please pick your location manually')
         })
     }
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     map: {
-        width: '100%',
+        width: '80%',
         height: 250
     },
     button: {

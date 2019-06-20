@@ -32,7 +32,6 @@ class PlaceDetail extends Component {
     }
 
     render() {
-        console.warn(this.props.selectedPlace)
         if (!this.props.selectedPlace.placeDescription) {
             placeinfo = "No information available"
         } else {
@@ -86,7 +85,9 @@ const styles = StyleSheet.create({
         margin: 5
     },
     map: {
-        ...StyleSheet.absoluteFillObject
+        ...StyleSheet.absoluteFillObject,
+        borderWidth: 4,
+        borderColor: '#aaa'
     },
     description: {
         textAlign: 'left',
@@ -104,7 +105,8 @@ const styles = StyleSheet.create({
     },
     placeImage: {
         height: '100%',
-        width: '100%'
+        width: '100%',
+        borderWidth: 4
     },
     deleteButton: {
         alignItems: 'center'
