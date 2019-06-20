@@ -20,7 +20,7 @@ class PickImage extends Component {
                 this.setState({
                     avatarSource: source,
                 });
-                this.props.onImagePicked({ uri: response.uri });
+                this.props.onImagePicked({ uri: response.uri, base64: response.data });
             }
         });
     }

@@ -11,8 +11,8 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
             placeDescription,
             location
         }
-
-        axios.post('https://go-places-29706.firebaseio.com/placeData.json', placeData)
+        alert(placeImage.base64)
+        axios.post('https://go-places-79741.firebaseio.com/placeData.json', placeData)
             .then(response => console.warn(response))
             .catch(err => console.warn(err))
     }
