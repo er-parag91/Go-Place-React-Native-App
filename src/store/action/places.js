@@ -2,19 +2,34 @@ import {
     ADD_PLACE,
     DELETE_PLACE
 } from './actionTypes';
-import axios from 'axios';
 
 export const addPlace = (placeName, placeDescription, location, placeImage) => {
     return dispatch => {
-        const placeData = {
-            placeName,
-            placeDescription,
-            location
-        }
-        alert(placeImage.base64)
-        axios.post('https://go-places-79741.firebaseio.com/placeData.json', placeData)
-            .then(response => console.warn(response))
+        fetch('https://us-central1-go-places-79741.cloudfunctions.net/storeImage', {
+                method: "POST",
+                body: JSON.stringify({
+                    image: placeImage.base64
+                })
+            })
             .catch(err => console.warn(err))
+            .then(res => res.json())
+            .then(parsed => {
+                const placeData = {
+                    placeName,
+                    placeDescription,
+                    location,
+                    placeImage: parsed.imageUrl
+                }
+                return fetch('https://go-places-79741.firebaseio.com//placeData.json', {
+                    method: 'POST',
+                    body: JSON.stringify(placeData)
+                })
+            })
+            .catch(err => console.warn(err))
+            .then(res => res.json())
+            .then(parsed => {
+                console.warn(parsed);
+            });
     }
 }
 
