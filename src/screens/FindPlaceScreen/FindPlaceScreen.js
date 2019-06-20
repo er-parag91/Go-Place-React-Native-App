@@ -33,7 +33,7 @@ class FindPlaceScreen extends Component {
     placesLoadedHandler = () => {
         Animated.timing(this.state.placesAnimation, {
             toValue: 1,
-            duration: 5,
+            duration: 500,
             useNativeDriver: true
         }).start()
     }
@@ -41,7 +41,7 @@ class FindPlaceScreen extends Component {
     placesSearchHandler = () => {
         Animated.timing(this.state.removeAnimation, {
             toValue: 0,
-            duration: 5,
+            duration: 500,
             useNativeDriver: true
         }).start(() => {
             this.setState({
