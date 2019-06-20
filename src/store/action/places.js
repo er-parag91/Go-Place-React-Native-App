@@ -2,16 +2,17 @@ import {
     ADD_PLACE,
     DELETE_PLACE
 } from './actionTypes';
+import { uiStartLoading, uiStopLoading } from './ui';
 
 export const addPlace = (placeName, placeDescription, location, placeImage) => {
     return dispatch => {
+        dispatch(uiStartLoading())
         fetch('https://us-central1-go-places-79741.cloudfunctions.net/storeImage', {
                 method: "POST",
                 body: JSON.stringify({
                     image: placeImage.base64
                 })
             })
-            .catch(err => console.warn(err))
             .then(res => res.json())
             .then(parsed => {
                 const placeData = {
@@ -25,10 +26,20 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                     body: JSON.stringify(placeData)
                 })
             })
-            .catch(err => console.warn(err))
+            .catch(err => {
+                console.log(err);
+                alert('Something went wrong on our end. Please try again');
+                dispatch(uiStopLoading())
+            })
             .then(res => res.json())
             .then(parsed => {
-                console.warn(parsed);
+                console.log(parsed);
+                dispatch(uiStopLoading());
+            })
+            .catch(err => {
+                console.log(err);
+                alert('Something went wrong on our end. Please try again');
+                dispatch(uiStopLoading());
             });
     }
 }

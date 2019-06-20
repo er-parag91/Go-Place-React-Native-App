@@ -5,7 +5,7 @@ const initialState = {
     password: '',
 }
 
-export const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type){
         case PUT_AUTH:
             return {
@@ -18,3 +18,5 @@ export const authReducer = (state = initialState, action) => {
             return state;
     }
 }
+
+export default authReducer
