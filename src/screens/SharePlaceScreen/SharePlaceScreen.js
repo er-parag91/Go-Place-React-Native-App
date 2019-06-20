@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput } from 'react-native';
+import { Button, StyleSheet, ScrollView, KeyboardAvoidingView, TextInput, ActivityIndicator, View } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace } from '../../store/action/index';
 import MainText from '../../components/UI/MainText/MainText';
@@ -136,6 +136,22 @@ class ShareScreenPlace extends Component {
     }
 
     render() {
+        let submitButton = (
+                <Button
+                disabled={
+                    !this.state.controls.placeName.valid ||
+                    !this.state.controls.location.valid
+                    // !this.state.controls.placeImage.valid
+                }
+                title="Share Place"
+                onPress={this.placeAddedHandler}
+            />
+            );
+
+            if (this.props.isLoading) {
+                submitButton = <ActivityIndicator />
+            }
+
         return (
             <ScrollView>
                 <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} style={styles.container}>
@@ -157,18 +173,18 @@ class ShareScreenPlace extends Component {
                         numberOfLines={5}
                         style={styles.textArea}
                     />
-                    <Button
-                        disabled={
-                            !this.state.controls.placeName.valid ||
-                            !this.state.controls.location.valid
-                            // !this.state.controls.placeImage.valid
-                        }
-                        title="Share Place"
-                        onPress={this.placeAddedHandler}
-                    />
+                    <View style={styles.button}>
+                        {submitButton}
+                    </View>
                 </KeyboardAvoidingView>
             </ScrollView>
         )
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.loading.isLoading
     }
 }
 
@@ -209,4 +225,4 @@ const styles = StyleSheet.create({
         marginBottom: 10
     }
 })
-export default connect(null, mapDistpatchToProps)(ShareScreenPlace);
+export default connect(mapStateToProps, mapDistpatchToProps)(ShareScreenPlace);

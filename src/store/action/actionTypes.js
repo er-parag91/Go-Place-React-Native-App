@@ -3,3 +3,6 @@ export const DELETE_PLACE = 'DELETE_PLACE';
 
 
 export const PUT_AUTH = 'PUT_AUTH';
+
+export const UI_START_LOADING = 'UI_START_LOADING';
+export const UI_STOP_LOADING = 'UI_STOP_LOADING';
