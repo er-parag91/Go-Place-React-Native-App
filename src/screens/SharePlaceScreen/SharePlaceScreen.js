@@ -87,7 +87,7 @@ class ShareScreenPlace extends Component {
         })
     }
 
-    locationPickedHandler = (location) =>{
+    locationPickedHandler = (location) => {
         this.setState(prevState => {
             return {
                 controls: {
@@ -103,9 +103,10 @@ class ShareScreenPlace extends Component {
     }
 
     placeAddedHandler = () => {
-            const { controls } = this.state;
-            this.props.onPlaceAdded(controls.placeName.value, controls.placeDescription.value, controls.location.value, controls.placeImage.value);
-            this.setState({ controls: {
+        const { controls } = this.state;
+        this.props.onPlaceAdded(controls.placeName.value, controls.placeDescription.value, controls.location.value, controls.placeImage.value);
+        this.setState({
+            controls: {
                 placeName: {
                     value: '',
                     valid: false,
@@ -121,12 +122,21 @@ class ShareScreenPlace extends Component {
                     validationRules: {
                         notEmpty: true
                     }
+                },
+                location: {
+                    value: null,
+                    valid: false
+                },
+                placeImage: {
+                    value: null,
+                    valid: false
                 }
-            }})
+            }
+        })
     }
-    
-    render(){
-        return(
+
+    render() {
+        return (
             <ScrollView>
                 <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} style={styles.container}>
                     <MainText>
@@ -148,13 +158,13 @@ class ShareScreenPlace extends Component {
                         style={styles.textArea}
                     />
                     <Button
-                    disabled={
-                        !this.state.controls.placeName.valid ||
-                        !this.state.controls.location.valid
-                        // !this.state.controls.placeImage.valid
-                        } 
-                    title="Share Place" 
-                    onPress={this.placeAddedHandler} 
+                        disabled={
+                            !this.state.controls.placeName.valid ||
+                            !this.state.controls.location.valid
+                            // !this.state.controls.placeImage.valid
+                        }
+                        title="Share Place"
+                        onPress={this.placeAddedHandler}
                     />
                 </KeyboardAvoidingView>
             </ScrollView>
@@ -188,11 +198,11 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     textArea: {
-        height:120,
+        height: 120,
         textAlign: 'left',
         width: '100%',
         borderTopWidth: 1,
-        borderBottomWidth : 1,
+        borderBottomWidth: 1,
         borderColor: '#eee',
         padding: 10,
         marginTop: 10,
