@@ -3,15 +3,6 @@ import { View, Image, Button, StyleSheet } from 'react-native';
 import imagePlaceHolder from '../../Assets/imagePlaceholder.jpg';
 import ImagePicker from 'react-native-image-picker';
 
-const options = {
-    title: 'Select Photo',
-    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-    storageOptions: {
-        skipBackup: true,
-        path: 'images',
-    },
-};
-
 class PickImage extends Component {
 
     state = {
@@ -19,55 +10,21 @@ class PickImage extends Component {
     }
 
     pickImageHandler = () => {
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-
+        ImagePicker.showImagePicker({title: 'Select Photo'}, response => {
             if (response.didCancel) {
-                console.log('User cancelled image picker');
+                alert('User cancelled image picker');
             } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
+                alert('ImagePicker Error: Most likely permission denied ');
             } else {
                 const source = { uri: response.uri };
-
-                // You can also display the image using data:
-                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
                 this.setState({
                     avatarSource: source,
                 });
+                this.props.onImagePicked({ uri: response.uri });
             }
         });
     }
-
-
-    // // Launch Camera:
-    // ImagePicker.launchCamera(options, (response) => {
-    //     console.log('Response = ', response);
-
-    //         if (response.didCancel) {
-    //             console.log('User cancelled image picker');
-    //         } else if (response.error) {
-    //             console.log('ImagePicker Error: ', response.error);
-    //         } else if (response.customButton) {
-    //             console.log('User tapped custom button: ', response.customButton);
-    //         } else {
-    //             const source = { uri: response.uri };
-
-    //             // You can also display the image using data:
-    //             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-    //             this.setState({
-    //                 avatarSource: source,
-    //             });
-    //         }
-    // });
-
-    // // Open Image Library:
-    // ImagePicker.launchImageLibrary(options, (response) => {
-    //     // Same code as in above section!
-    // });
+    
     render() {
         return (
             <View style={styles.container}>
@@ -92,7 +49,7 @@ const styles = StyleSheet.create({
         borderColor: '#eee',
         backgroundColor: '#ddd',
         width: '80%',
-        height: 200
+        height: 250
     },
     button: {
         margin: 8
