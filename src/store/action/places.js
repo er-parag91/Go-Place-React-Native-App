@@ -1,8 +1,10 @@
 import {
-    ADD_PLACE,
-    DELETE_PLACE
+    SET_PLACES
 } from './actionTypes';
-import { uiStartLoading, uiStopLoading } from './ui';
+import {
+    uiStartLoading,
+    uiStopLoading
+} from './ui';
 
 export const addPlace = (placeName, placeDescription, location, placeImage) => {
     return dispatch => {
@@ -41,6 +43,39 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 alert('Something went wrong on our end. Please try again');
                 dispatch(uiStopLoading());
             });
+    }
+}
+
+export const getPlaces = () => {
+    return dispatch => {
+        return fetch('https://go-places-79741.firebaseio.com//placeData.json')
+            .then(res => res.json())
+            .then(parsed => {
+                const places = [];
+
+                for (let key in parsed) {
+                    places.push({
+                        ...parsed[key],
+                        key: key,
+                        placeImage: {
+                            uri: parsed[key].placeImage
+                        }
+                    })
+                }
+
+                dispatch(setPlaces(places));
+            })
+            .catch(err => {
+                alert('Something went wrong on our end. Please Try again');
+                console.log(err);
+            })
+    }
+}
+
+export const setPlaces = places => {
+    return {
+        type: SET_PLACES,
+        places: places
     }
 }
 

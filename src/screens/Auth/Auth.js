@@ -137,7 +137,7 @@ class Auth extends Component {
                     <View style={styles.login}>
                         {headingText}
                         <ButtonWithBackground color="#29aaf4" onPress={this.authModeSwitchHandler}>
-                            Switch to { this.state.authMode === 'login' ? 'Sign up' : 'login' }
+                            Switch to { this.state.authMode === 'login' ? 'Sign-up' : 'login' }
                         </ButtonWithBackground>
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={styles.inputContainer}>

@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Animated, Platform } from 're
 import { connect } from 'react-redux';
 import PlacesList from '../../components/PlacesList/PlacesList';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getPlaces } from '../../store/action/places';
 
 class FindPlaceScreen extends Component {
     static navigatorStyle = {
@@ -28,6 +29,11 @@ class FindPlaceScreen extends Component {
                 })
             }
         }
+    }
+
+    componentDidMount(){
+        this.props.onLoadPlaces()
+        console.warn('component did mount')
     }
 
     placesLoadedHandler = () => {
@@ -135,6 +141,11 @@ const mapStateToProps = (state) => {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLoadPlaces: () => dispatch(getPlaces())
+    }
+}
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'black',
@@ -158,4 +169,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(mapStateToProps)(FindPlaceScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(FindPlaceScreen);
