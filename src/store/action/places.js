@@ -48,6 +48,7 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
 
 export const getPlaces = () => {
     return dispatch => {
+        dispatch(uiStartLoading())
         return fetch('https://go-places-79741.firebaseio.com//placeData.json')
             .then(res => res.json())
             .then(parsed => {
@@ -64,10 +65,12 @@ export const getPlaces = () => {
                 }
 
                 dispatch(setPlaces(places));
+                dispatch(uiStopLoading())
             })
             .catch(err => {
                 alert('Something went wrong on our end. Please Try again');
                 console.log(err);
+                dispatch(uiStopLoading())
             })
     }
 }

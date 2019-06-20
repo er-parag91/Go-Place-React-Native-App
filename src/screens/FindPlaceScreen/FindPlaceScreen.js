@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Animated, Platform } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Animated, Platform, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import PlacesList from '../../components/PlacesList/PlacesList';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getPlaces } from '../../store/action/places';
+
 
 class FindPlaceScreen extends Component {
     static navigatorStyle = {
@@ -83,29 +84,33 @@ class FindPlaceScreen extends Component {
     }
 
     render() {
-        let content = (
-            <Animated.View 
-                style={{ 
-                opacity: this.state.removeAnimation,
-                transform: [
-                    {
-                        scale: this.state.removeAnimation.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [3, 1]
-                        })
-                    }
-                ]
-                }}
-            >
-                <TouchableOpacity onPress={this.placesSearchHandler}>
-                    <View style={styles.searchButton}>
-                        <Text style={styles.searchButtonText}>Find Place</Text>
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
-        )
 
-        if (this.state.placesLoaded) {
+        let content = <ActivityIndicator />
+        if (!this.props.loading) {
+            content = (
+                <Animated.View 
+                    style={{ 
+                    opacity: this.state.removeAnimation,
+                    transform: [
+                        {
+                            scale: this.state.removeAnimation.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [3, 1]
+                            })
+                        }
+                    ]
+                    }}
+                >
+                    <TouchableOpacity onPress={this.placesSearchHandler}>
+                        <View style={styles.searchButton}>
+                            <Text style={styles.searchButtonText}>Find Place</Text>
+                        </View>
+                    </TouchableOpacity>
+                </Animated.View>
+            )
+        }
+
+        if (!this.props.loading && this.state.placesLoaded) {
             content=(
                 <Animated.View
                     style={{
@@ -137,7 +142,8 @@ class FindPlaceScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        places: state.places.places
+        places: state.places.places,
+        loading: state.loading.isLoading
     }
 }
 
