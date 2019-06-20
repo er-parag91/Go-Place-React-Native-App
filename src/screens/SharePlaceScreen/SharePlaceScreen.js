@@ -150,8 +150,8 @@ class ShareScreenPlace extends Component {
                     <Button
                     disabled={
                         !this.state.controls.placeName.valid ||
-                        !this.state.controls.location.valid ||
-                        !this.state.controls.placeImage.valid
+                        !this.state.controls.location.valid
+                        // !this.state.controls.placeImage.valid
                         } 
                     title="Share Place" 
                     onPress={this.placeAddedHandler} 
