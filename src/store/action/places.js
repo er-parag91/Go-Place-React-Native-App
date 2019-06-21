@@ -10,17 +10,22 @@ import {
 
 export const addPlace = (placeName, placeDescription, location, placeImage) => {
     return dispatch => {
+        let authToken;
         dispatch(uiStartLoading())
         dispatch(authGetToken())
             .catch(() => {
                 alert('Invalid token supplied');
             })
             .then((token) => {
-                fetch('https://us-central1-go-places-79741.cloudfunctions.net/storeImage', {
+                authToken = token;
+                return fetch('https://us-central1-go-places-79741.cloudfunctions.net/storeImage', {
                     method: "POST",
                     body: JSON.stringify({
                         image: placeImage.base64
-                    })
+                    }),
+                    headers: {
+                        "authorization": "Bearer " + authToken
+                    }
                 })
             })
             .then(res => res.json())
@@ -34,7 +39,7 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                         location,
                         placeImage: parsed.imageUrl
                     }
-                    return fetch('https://go-places-79741.firebaseio.com//placeData.json', {
+                    return fetch(`https://go-places-79741.firebaseio.com//placeData.json?auth=${authToken}`, {
                         method: 'POST',
                         body: JSON.stringify(placeData)
                     })
