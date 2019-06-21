@@ -110,7 +110,7 @@ class FindPlaceScreen extends Component {
             )
         }
 
-        if (!this.props.loading && this.state.placesLoaded) {
+        if (this.state.placesLoaded) {
             content=(
                 <Animated.View
                     style={{
