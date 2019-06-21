@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet, ImageBackground, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import StartMainTabs from '../MainTabs/MainTabs';
+import { View, Dimensions, StyleSheet, ImageBackground, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import MainText from '../../components/UI/MainText/MainText';
@@ -66,11 +65,10 @@ class Auth extends Component {
 
     LoginHandler = () => {
         const authData = {
-            email: this.state.email,
-            password: this.state.password,
+            email: this.state.controls.email.value,
+            password: this.state.controls.password.value,
         }
         this.props.onLogin(authData);
-        StartMainTabs();
     }
 
     inputChangedHandler = (key, value) => {
@@ -98,16 +96,16 @@ class Auth extends Component {
                     ...prevState.controls,
                     confirmPassword: {
                         ...prevState.controls.confirmPassword,
-                        valid: 
-                            key === 'password' 
-                            ?
-                            validate(
-                                prevState.controls.confirmPassword.value,
-                                prevState.controls.confirmPassword.validationRules,
-                                connectedValue
-                            )
-                            :
-                            prevState.controls.confirmPassword.valid
+                        valid:
+                            key === 'password'
+                                ?
+                                validate(
+                                    prevState.controls.confirmPassword.value,
+                                    prevState.controls.confirmPassword.validationRules,
+                                    connectedValue
+                                )
+                                :
+                                prevState.controls.confirmPassword.valid
                     },
                     [key]: {
                         ...prevState.controls[key],
@@ -121,6 +119,7 @@ class Auth extends Component {
     }
 
     render() {
+        const { controls } = this.state;
         let headingText = null;
         const { viewMode } = this.state;
         if (viewMode === 'portrait') {
@@ -130,14 +129,30 @@ class Auth extends Component {
                 </MainText>
             );
         }
-        const { controls } = this.state;
+        let submitButton = (
+            <ButtonWithBackground
+                onPress={this.LoginHandler}
+                color="#29aaf4"
+                width="50%"
+                disabled={
+                    !controls.email.valid ||
+                    !controls.password.valid ||
+                    !controls.confirmPassword.valid && this.state.authMode === 'signup'
+                }
+            >
+                Login
+        </ButtonWithBackground>
+        )
+        if (this.props.loading) {
+            submitButton = <ActivityIndicator />
+        }
         return (
             <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
                 <KeyboardAvoidingView style={styles.container} behavior="padding">
                     <View style={styles.login}>
                         {headingText}
                         <ButtonWithBackground color="#29aaf4" onPress={this.authModeSwitchHandler}>
-                            Switch to { this.state.authMode === 'login' ? 'Sign-up' : 'login' }
+                            Switch to {this.state.authMode === 'login' ? 'Sign-up' : 'login'}
                         </ButtonWithBackground>
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={styles.inputContainer}>
@@ -154,20 +169,20 @@ class Auth extends Component {
                                 />
                                 <View
                                     style={
-                                        viewMode === 'portrait' || this.state.authMode === 'login' 
-                                        ? 
-                                        styles.portraitPasswordContainer 
-                                        : 
-                                        styles.landscapePasswordContainer
-                                        }
+                                        viewMode === 'portrait' || this.state.authMode === 'login'
+                                            ?
+                                            styles.portraitPasswordContainer
+                                            :
+                                            styles.landscapePasswordContainer
+                                    }
                                 >
                                     <View style={
-                                            viewMode === 'portrait' || this.state.authMode === 'login'
+                                        viewMode === 'portrait' || this.state.authMode === 'login'
                                             ?
                                             styles.portraitPasswordWrapper
                                             :
                                             styles.landscapePasswordWrapper
-                                            }
+                                    }
                                     >
                                         <DefaultInput
                                             placeholder="Password"
@@ -179,33 +194,22 @@ class Auth extends Component {
                                             secureTextEntry
                                         />
                                     </View>
-                                    {this.state.authMode === 'signup' && 
-                                    <View style={viewMode === 'portrait' ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper}>
-                                        <DefaultInput
-                                            placeholder="Confirm Password"
-                                            style={styles.input}
-                                            value={controls.confirmPassword.value}
-                                            onChangeText={(value) => this.inputChangedHandler('confirmPassword', value)}
-                                            valid={!controls.confirmPassword.valid}
-                                            touched={controls.confirmPassword.touched}
-                                            secureTextEntry
-                                        />
-                                    </View>}
+                                    {this.state.authMode === 'signup' &&
+                                        <View style={viewMode === 'portrait' ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper}>
+                                            <DefaultInput
+                                                placeholder="Confirm Password"
+                                                style={styles.input}
+                                                value={controls.confirmPassword.value}
+                                                onChangeText={(value) => this.inputChangedHandler('confirmPassword', value)}
+                                                valid={!controls.confirmPassword.valid}
+                                                touched={controls.confirmPassword.touched}
+                                                secureTextEntry
+                                            />
+                                        </View>}
                                 </View>
                             </View>
                         </TouchableWithoutFeedback>
-                        <ButtonWithBackground
-                            onPress={this.LoginHandler}
-                            color="#29aaf4"
-                            width="50%"
-                            disabled={
-                                !controls.email.valid || 
-                                !controls.password.valid ||
-                                !controls.confirmPassword.valid  && this.state.authMode === 'signup'
-                                }
-                        >
-                        Login
-                        </ButtonWithBackground>
+                        {submitButton}
                     </View>
                 </KeyboardAvoidingView>
             </ImageBackground>
@@ -255,10 +259,16 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = (state) => {
+    return {
+        loading: state.loading.isLoading
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         onLogin: (authData) => dispatch(auth(authData))
     }
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
