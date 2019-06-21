@@ -1,5 +1,5 @@
 import {
-    SET_PLACES
+    SET_PLACES, REMOVE_PLACE, ADD_PLACE
 } from './actionTypes';
 import {
     uiStartLoading,
@@ -9,6 +9,7 @@ import {
 export const addPlace = (placeName, placeDescription, location, placeImage) => {
     return dispatch => {
         dispatch(uiStartLoading())
+        dispatch(placeAdded(placeName, placeDescription, location, placeImage))
         fetch('https://us-central1-go-places-79741.cloudfunctions.net/storeImage', {
                 method: "POST",
                 body: JSON.stringify({
@@ -29,7 +30,7 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 })
             })
             .catch(err => {
-                alert('Something went wrong on our end. Please try again');
+                alert('Something went wrong on our end. Please share place again');
                 dispatch(uiStopLoading())
             })
             .then(res => res.json())
@@ -37,7 +38,7 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 dispatch(uiStopLoading());
             })
             .catch(err => {
-                alert('Something went wrong on our end. Please try again');
+                alert('Something went wrong on our end. Please share place again');
                 dispatch(uiStopLoading());
             });
     }
@@ -80,12 +81,13 @@ export const setPlaces = places => {
 
 export const deletePlace = (key) => {
     return dispatch => {
+        dispatch(removePlace(key))
         dispatch(uiStartLoading())
         fetch(`https://go-places-79741.firebaseio.com//placeData/${key}.json`, {
             method: 'DELETE'
         })
         .then(res => res.json())
-        .then(parsed => {
+        .then(() => {
             dispatch(uiStopLoading())
         })
         .catch(err => {
@@ -93,5 +95,22 @@ export const deletePlace = (key) => {
             dispatch(uiStopLoading())
         })
 
+    }
+}
+
+const removePlace = (key) => {
+    return {
+        type: REMOVE_PLACE,
+        key: key
+    }
+}
+
+const placeAdded = (placeName, placeDescription, location, placeImage) => {
+    return {
+        type: ADD_PLACE,
+        placeName,
+        placeDescription,
+        location,
+        placeImage
     }
 }
