@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { AUTH_SET_TOKEN } from './actionTypes';
 import { api } from '../../path';
 import StartMainTabs from '../../screens/MainTabs/MainTabs';
@@ -24,10 +25,9 @@ export const auth = (authData, authMode) => {
         .then(res => res.json())
         .then(parsedRes => {
             if (parsedRes.error) {
-                console.warn()
                 throw new Error(`${parsedRes.error.message} : Authentication error. Plaese try again`)
             } else {
-                dispatch(authSetToken(parsedRes.idToken));
+                dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn));
                 dispatch(uiStopLoading())
                 StartMainTabs();
             }
@@ -39,7 +39,17 @@ export const auth = (authData, authMode) => {
     }
 }
 
-const authSetToken = token => {
+export const authStoreToken = (token, expiresIn) => {
+    return dispatch => {
+        dispatch(authSetToken(token));
+        const now = new Date();
+        const expiryDate = now.getTime() + expiresIn * 1000;
+        AsyncStorage.setItem('gp:auth:token', token);
+        AsyncStorage.setItem('gp:auth:expiryDate', expiryDate.toString());
+    }
+}
+
+export const authSetToken = token => {
     return {
         type: AUTH_SET_TOKEN,
         token: token
@@ -51,11 +61,43 @@ export const authGetToken = () => {
         const promise = new Promise((resolve, reject) => {
             const token = getState().auth.token;
             if (!token) {
-                reject();
+                let fetchedToken;
+                AsyncStorage.getItem('gp:auth:token')
+                    .catch(err => reject())
+                    .then(tokenFromStorage => {
+                        fetchedToken = tokenFromStorage;
+                        if (!tokenFromStorage) {
+                            reject();
+                            return;
+                        }
+                        return AsyncStorage.getItem('gp:auth:expiryDate')
+
+                    })
+                    .then(expiryDate => {
+                        const parsedExpiryDate = new Date(parseInt(expiryDate));
+                        const now = new Date();
+                        if (parsedExpiryDate > now) {
+                            dispatch(authSetToken(fetchedToken));
+                            resolve(fetchedToken);
+                        } else {
+                            reject();
+                        }
+                    })
+                    .catch(err => reject())
             } else {
                 resolve(token);
             }
         })
         return promise;
+    }
+}
+
+export const autoSignIn = () => {
+    return dispatch => {
+        dispatch(authGetToken())
+        .then(token => {
+            StartMainTabs();
+        })
+        .catch (err => alert('failed to fetch saved token'));
     }
 }

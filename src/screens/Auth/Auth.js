@@ -7,7 +7,7 @@ import backgroundImage from '../../Assets/background.jpg';
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 import validate from '../../utility/validation';
 import { connect } from 'react-redux';
-import { auth } from '../../store/action/index';
+import { auth, autoSignIn } from '../../store/action/index';
 
 class Auth extends Component {
     static navigatorStyle = {
@@ -49,8 +49,12 @@ class Auth extends Component {
         Dimensions.addEventListener('change', this.updateStyle)
     }
 
-    componentWillUnmount = () => {
+    componentWillUnmount() {
         Dimensions.removeEventListener('change', this.updateStyle)
+    }
+
+    componentDidMount() {
+        this.props.onAutoSignIn();
     }
 
     updateStyle = () => {
@@ -280,7 +284,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onTryAuth: (authData, authMode) => dispatch(auth(authData, authMode))
+        onTryAuth: (authData, authMode) => dispatch(auth(authData, authMode)),
+        onAutoSignIn: () => dispatch(autoSignIn())
     }
 }
 
