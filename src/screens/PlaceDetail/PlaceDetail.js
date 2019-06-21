@@ -95,12 +95,13 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'left',
-        fontWeight: "500",
+        fontWeight: "700",
+        fontSize: 16,
         marginBottom: 15
     },
     name: {
         textAlign: 'left',
-        fontWeight: "300",
+        fontWeight: "500",
         marginBottom: 8
     },
     placeImage: {

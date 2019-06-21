@@ -46,7 +46,6 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 }
             })
             .catch(err => {
-                console.warn(err, 'jfewfjere');
                 alert('Server/Auth ' + err);
                 dispatch(uiStopLoading())
             })
@@ -59,7 +58,6 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 }
             })
             .catch(err => {
-                console.warn(err, 'eeeee');
 
                 alert('Server/Auth ' + err);
                 dispatch(uiStopLoading());
@@ -79,9 +77,7 @@ export const getPlaces = () => {
             })
             .then(res => res.json())
             .then(parsed => {
-                if (parsed.error) {
-                    throw new Error(parsed.error);
-                } else {
+
                     const places = [];
 
                     for (let key in parsed) {
@@ -95,10 +91,9 @@ export const getPlaces = () => {
                     }
                     dispatch(setPlaces(places));
                     dispatch(uiStopLoading())
-                }
+                
             })
             .catch(err => {
-                console.warn(err, 'error occur')
                 alert('Server/Auth ' + err);
                 dispatch(uiStopLoading())
             })

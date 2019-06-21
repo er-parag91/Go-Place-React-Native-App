@@ -10,6 +10,7 @@
     "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.5.0",
     "react": "16.8.3",
     "react-native": "0.59.9",
     "react-native-image-picker": "^0.28.1",

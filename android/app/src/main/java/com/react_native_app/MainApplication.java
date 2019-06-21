@@ -3,6 +3,7 @@ package com.react_native_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -54,6 +55,7 @@ public class MainApplication extends NavigationApplication {
       protected List<ReactPackage> getPackages() {
           return Arrays.<ReactPackage>asList(
                   new MainReactPackage(),
+            new AsyncStoragePackage(),
                   new MapsPackage()
           );
       }
