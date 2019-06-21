@@ -4,8 +4,9 @@ import {
 } from './actionTypes';
 import {
     uiStartLoading,
-    uiStopLoading
-} from './ui';
+    uiStopLoading,
+    authGetToken
+} from './index';
 
 export const addPlace = (placeName, placeDescription, location, placeImage) => {
     return dispatch => {
@@ -34,7 +35,8 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 }
             })
             .catch(err => {
-                alert(err);
+                console.warn(err, 'jfewfjere');
+                alert('Server/Auth ' + err);
                 dispatch(uiStopLoading())
             })
             .then(res => res.json())
@@ -46,16 +48,24 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 }
             })
             .catch(err => {
-                alert(err);
+                console.warn(err, 'eeeee');
+
+                alert('Server/Auth ' + err);
                 dispatch(uiStopLoading());
             });
     }
 }
 
 export const getPlaces = () => {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(uiStartLoading())
-        return fetch('https://go-places-79741.firebaseio.com//placeData.json')
+        dispatch(authGetToken())
+            .then(token => {
+                return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' + token)
+            })
+            .catch(() => {
+                alert('Invalid Token supplied');
+            })
             .then(res => res.json())
             .then(parsed => {
                 if (parsed.error) {
@@ -77,7 +87,8 @@ export const getPlaces = () => {
                 }
             })
             .catch(err => {
-                alert(err);
+                console.warn(err, 'error occur')
+                alert('Server/Auth ' + err);
                 dispatch(uiStopLoading())
             })
     }
@@ -107,7 +118,7 @@ export const deletePlace = (key) => {
                 }
             })
             .catch(err => {
-                alert(err)
+                alert('Server/Auth ' + err)
                 dispatch(uiStopLoading())
             })
 
