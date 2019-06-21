@@ -34,7 +34,6 @@ class FindPlaceScreen extends Component {
 
     componentDidMount(){
         this.props.onLoadPlaces()
-        console.warn('component did mount')
     }
 
     placesLoadedHandler = () => {
