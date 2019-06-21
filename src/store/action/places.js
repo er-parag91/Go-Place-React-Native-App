@@ -29,17 +29,14 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 })
             })
             .catch(err => {
-                console.log(err);
                 alert('Something went wrong on our end. Please try again');
                 dispatch(uiStopLoading())
             })
             .then(res => res.json())
             .then(parsed => {
-                console.log(parsed);
                 dispatch(uiStopLoading());
             })
             .catch(err => {
-                console.log(err);
                 alert('Something went wrong on our end. Please try again');
                 dispatch(uiStopLoading());
             });
@@ -69,7 +66,6 @@ export const getPlaces = () => {
             })
             .catch(err => {
                 alert('Something went wrong on our end. Please Try again');
-                console.log(err);
                 dispatch(uiStopLoading())
             })
     }
@@ -83,8 +79,19 @@ export const setPlaces = places => {
 }
 
 export const deletePlace = (key) => {
-    return {
-        type: DELETE_PLACE,
-        placeKey: key
+    return dispatch => {
+        dispatch(uiStartLoading())
+        fetch(`https://go-places-79741.firebaseio.com//placeData/${key}.json`, {
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(parsed => {
+            dispatch(uiStopLoading())
+        })
+        .catch(err => {
+            alert('Something went wrong on our end. Please try again')
+            dispatch(uiStopLoading())
+        })
+
     }
 }
