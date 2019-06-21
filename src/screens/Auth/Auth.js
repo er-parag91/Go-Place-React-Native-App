@@ -63,12 +63,12 @@ class Auth extends Component {
         })
     }
 
-    LoginHandler = () => {
+    authHandler = () => {
         const authData = {
             email: this.state.controls.email.value,
             password: this.state.controls.password.value,
         }
-        this.props.onLogin(authData);
+        this.props.onTryAuth(authData, this.state.authMode);
     }
 
     inputChangedHandler = (key, value) => {
@@ -131,7 +131,7 @@ class Auth extends Component {
         }
         let submitButton = (
             <ButtonWithBackground
-                onPress={this.LoginHandler}
+                onPress={this.authHandler}
                 color="#29aaf4"
                 width="50%"
                 disabled={
@@ -280,7 +280,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogin: (authData) => dispatch(auth(authData))
+        onTryAuth: (authData, authMode) => dispatch(auth(authData, authMode))
     }
 }
 

@@ -83,7 +83,6 @@ class FindPlaceScreen extends Component {
     }
 
     render() {
-
         let content = <ActivityIndicator />
         if (!this.props.loading) {
             content = (
@@ -142,7 +141,8 @@ class FindPlaceScreen extends Component {
 const mapStateToProps = (state) => {
     return {
         places: state.places.places,
-        loading: state.loading.isLoading
+        loading: state.loading.isLoading,
+        token: state.auth.token
     }
 }
 
