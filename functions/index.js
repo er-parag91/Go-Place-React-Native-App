@@ -20,7 +20,6 @@ exports.storeImage = functions.https.onRequest((request, response) => {
     cors(request, response, () => {
         const body = JSON.parse(request.body);
         fs.writeFileSync("/tmp/uploaded-image.jpg", body.image, "base64", err => {
-            console.log(err);
             return response.status(500).json({
                 error: err
             });
@@ -48,7 +47,6 @@ exports.storeImage = functions.https.onRequest((request, response) => {
                         uuid
                 });
             } else {
-                console.log(err);
                 response.status(500).json({
                     error: err
                 });

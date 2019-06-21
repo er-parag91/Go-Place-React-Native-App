@@ -24,14 +24,17 @@ export const authSignup = (authData) => {
             }
         })
         .then(res => res.json())
-        .then(() => {
-        dispatch(uiStopLoading())
-        StartMainTabs();
+        .then(parsedRes => {
+            if (parsedRes.email === authData.email) {
+                dispatch(uiStopLoading())
+                StartMainTabs();
+            } else {
+                throw new Error('You are not authorized')
+            }
         })
         .catch(err => {
             dispatch(uiStopLoading())
             alert('You are not the one we are looking for')
-            console.warn(err, 'errors');
         })
     }
 }

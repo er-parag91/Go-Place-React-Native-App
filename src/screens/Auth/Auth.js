@@ -144,7 +144,11 @@ class Auth extends Component {
         </ButtonWithBackground>
         )
         if (this.props.loading) {
-            submitButton = <ActivityIndicator />
+            submitButton = (
+                <View style={styles.loading}>
+                    <ActivityIndicator size="large" color="black"/>
+                </View>
+            )
         }
         return (
             <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
@@ -256,7 +260,16 @@ const styles = StyleSheet.create({
     },
     landscapePasswordWrapper: {
         width: '48%'
-    }
+    },
+    loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
 
 const mapStateToProps = (state) => {
