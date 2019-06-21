@@ -1,17 +1,15 @@
-import { PUT_AUTH } from '../action/actionTypes';
+import { AUTH_SET_TOKEN } from '../action/actionTypes';
 
 const initialState = {
-    email: '',
-    password: '',
+    token: null,
 }
 
 const authReducer = (state = initialState, action) => {
     switch (action.type){
-        case PUT_AUTH:
+        case AUTH_SET_TOKEN:
             return {
                 ...state,
-                email: action.email,
-                password: action.password,
+                token: action.token,
             }
                     
         default: 

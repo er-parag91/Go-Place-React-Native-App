@@ -1,5 +1,6 @@
 import {
-    SET_PLACES, REMOVE_PLACE, ADD_PLACE
+    SET_PLACES,
+    REMOVE_PLACE
 } from './actionTypes';
 import {
     uiStartLoading,
@@ -9,7 +10,6 @@ import {
 export const addPlace = (placeName, placeDescription, location, placeImage) => {
     return dispatch => {
         dispatch(uiStartLoading())
-        dispatch(placeAdded(placeName, placeDescription, location, placeImage))
         fetch('https://us-central1-go-places-79741.cloudfunctions.net/storeImage', {
                 method: "POST",
                 body: JSON.stringify({
@@ -18,27 +18,35 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
             })
             .then(res => res.json())
             .then(parsed => {
-                const placeData = {
-                    placeName,
-                    placeDescription,
-                    location,
-                    placeImage: parsed.imageUrl
+                if (parsed.error) {
+                    throw new Error(parsed.error)
+                } else {
+                    const placeData = {
+                        placeName,
+                        placeDescription,
+                        location,
+                        placeImage: parsed.imageUrl
+                    }
+                    return fetch('https://go-places-79741.firebaseio.com//placeData.json', {
+                        method: 'POST',
+                        body: JSON.stringify(placeData)
+                    })
                 }
-                return fetch('https://go-places-79741.firebaseio.com//placeData.json', {
-                    method: 'POST',
-                    body: JSON.stringify(placeData)
-                })
             })
             .catch(err => {
-                alert('Something went wrong on our end. Please share '+ placeName +' again');
+                alert(err);
                 dispatch(uiStopLoading())
             })
             .then(res => res.json())
             .then(parsed => {
-                dispatch(uiStopLoading());
+                if (parsed.error) {
+                    throw new Error(parsed.error)
+                } else {
+                    dispatch(uiStopLoading());
+                }
             })
             .catch(err => {
-                alert('Something went wrong on our end. Please share '+ placeName +' again');
+                alert(err);
                 dispatch(uiStopLoading());
             });
     }
@@ -50,23 +58,26 @@ export const getPlaces = () => {
         return fetch('https://go-places-79741.firebaseio.com//placeData.json')
             .then(res => res.json())
             .then(parsed => {
-                const places = [];
+                if (parsed.error) {
+                    throw new Error(parsed.error);
+                } else {
+                    const places = [];
 
-                for (let key in parsed) {
-                    places.push({
-                        ...parsed[key],
-                        key: key,
-                        placeImage: {
-                            uri: parsed[key].placeImage
-                        }
-                    })
+                    for (let key in parsed) {
+                        places.push({
+                            ...parsed[key],
+                            key: key,
+                            placeImage: {
+                                uri: parsed[key].placeImage
+                            }
+                        })
+                    }
+                    dispatch(setPlaces(places));
+                    dispatch(uiStopLoading())
                 }
-
-                dispatch(setPlaces(places));
-                dispatch(uiStopLoading())
             })
             .catch(err => {
-                alert('Something went wrong on our end. Please Try again');
+                alert(err);
                 dispatch(uiStopLoading())
             })
     }
@@ -80,20 +91,25 @@ export const setPlaces = places => {
 }
 
 export const deletePlace = (key) => {
+    console.warn(key);
     return dispatch => {
         dispatch(removePlace(key))
         dispatch(uiStartLoading())
         fetch(`https://go-places-79741.firebaseio.com//placeData/${key}.json`, {
-            method: 'DELETE'
-        })
-        .then(res => res.json())
-        .then(() => {
-            dispatch(uiStopLoading())
-        })
-        .catch(err => {
-            alert('Something went wrong on our end while deleting. Please try again')
-            dispatch(uiStopLoading())
-        })
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then((parsed) => {
+                if (parsed.error) {
+                    throw new Error(parsed.error);
+                } else {
+                    dispatch(uiStopLoading())
+                }
+            })
+            .catch(err => {
+                alert(err)
+                dispatch(uiStopLoading())
+            })
 
     }
 }
@@ -102,15 +118,5 @@ const removePlace = (key) => {
     return {
         type: REMOVE_PLACE,
         key: key
-    }
-}
-
-const placeAdded = (placeName, placeDescription, location, placeImage) => {
-    return {
-        type: ADD_PLACE,
-        placeName,
-        placeDescription,
-        location,
-        placeImage
     }
 }

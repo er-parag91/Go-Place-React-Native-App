@@ -1,18 +1,16 @@
-import { PUT_AUTH } from './actionTypes';
+import { AUTH_SET_TOKEN } from './actionTypes';
 import { api } from '../../path';
 import StartMainTabs from '../../screens/MainTabs/MainTabs';
 import { uiStartLoading, uiStopLoading } from './ui';
 
-export const auth = (authData) => {
-    return dispatch => {
-        dispatch(authSignup(authData));
-    }
-}
-
-export const authSignup = (authData) => {
+export const auth = (authData, authMode) => {
     return dispatch => {
         dispatch(uiStartLoading())
-        fetch(`https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${api}`, {
+        let endPoint = 'verifyPassword';
+        if (authMode === 'signup') {
+            endPoint = 'signupNewUser';
+        }
+        fetch(`https://www.googleapis.com/identitytoolkit/v3/relyingparty/${endPoint}?key=${api}`, {
             method: 'POST',
             body: JSON.stringify({
                 email: authData.email,
@@ -25,16 +23,25 @@ export const authSignup = (authData) => {
         })
         .then(res => res.json())
         .then(parsedRes => {
-            if (parsedRes.email === authData.email) {
+            if (parsedRes.error) {
+                console.warn()
+                throw new Error(`${parsedRes.error.message} : Authentication error. Plaese try again`)
+            } else {
+                dispatch(authSetToken(parsedRes.idToken));
                 dispatch(uiStopLoading())
                 StartMainTabs();
-            } else {
-                throw new Error('You are not authorized')
             }
         })
         .catch(err => {
             dispatch(uiStopLoading())
-            alert('You are not the one we are looking for')
+            alert(err)
         })
+    }
+}
+
+const authSetToken = token => {
+    return {
+        type: AUTH_SET_TOKEN,
+        token: token
     }
 }
