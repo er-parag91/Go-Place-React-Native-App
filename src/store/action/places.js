@@ -11,10 +11,16 @@ import {
 export const addPlace = (placeName, placeDescription, location, placeImage) => {
     return dispatch => {
         dispatch(uiStartLoading())
-        fetch('https://us-central1-go-places-79741.cloudfunctions.net/storeImage', {
-                method: "POST",
-                body: JSON.stringify({
-                    image: placeImage.base64
+        dispatch(authGetToken())
+            .catch(() => {
+                alert('Invalid token supplied');
+            })
+            .then((token) => {
+                fetch('https://us-central1-go-places-79741.cloudfunctions.net/storeImage', {
+                    method: "POST",
+                    body: JSON.stringify({
+                        image: placeImage.base64
+                    })
                 })
             })
             .then(res => res.json())
@@ -57,14 +63,14 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
 }
 
 export const getPlaces = () => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(uiStartLoading())
         dispatch(authGetToken())
-            .then(token => {
-                return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' + token)
-            })
             .catch(() => {
                 alert('Invalid Token supplied');
+            })
+            .then(token => {
+                return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' + token)
             })
             .then(res => res.json())
             .then(parsed => {
@@ -102,20 +108,21 @@ export const setPlaces = places => {
 }
 
 export const deletePlace = (key) => {
-    console.warn(key);
     return dispatch => {
-        dispatch(removePlace(key))
         dispatch(uiStartLoading())
-        fetch(`https://go-places-79741.firebaseio.com//placeData/${key}.json`, {
-                method: 'DELETE'
+        dispatch(authGetToken())
+            .catch(() => {
+                alert('Invalid token supplied');
+            })
+            .then((token) => {
+                dispatch(removePlace(key))
+                return fetch(`https://go-places-79741.firebaseio.com//placeData/${key}.json?auth=${token}`, {
+                    method: 'DELETE'
+                })
             })
             .then(res => res.json())
             .then((parsed) => {
-                if (parsed.error) {
-                    throw new Error(parsed.error);
-                } else {
                     dispatch(uiStopLoading())
-                }
             })
             .catch(err => {
                 alert('Server/Auth ' + err)
