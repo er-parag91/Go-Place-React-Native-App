@@ -30,7 +30,7 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 })
             })
             .catch(err => {
-                alert('Something went wrong on our end. Please share place again');
+                alert('Something went wrong on our end. Please share '+ placeName +' again');
                 dispatch(uiStopLoading())
             })
             .then(res => res.json())
@@ -38,7 +38,7 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 dispatch(uiStopLoading());
             })
             .catch(err => {
-                alert('Something went wrong on our end. Please share place again');
+                alert('Something went wrong on our end. Please share '+ placeName +' again');
                 dispatch(uiStopLoading());
             });
     }
@@ -91,7 +91,7 @@ export const deletePlace = (key) => {
             dispatch(uiStopLoading())
         })
         .catch(err => {
-            alert('Something went wrong on our end. Please try again')
+            alert('Something went wrong on our end while deleting. Please try again')
             dispatch(uiStopLoading())
         })
 
