@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { deletePlace} from '../../store/action/index';
+import { deletePlace, startPlaceDelete} from '../../store/action/index';
 import MapView from 'react-native-maps';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class PlaceDetail extends Component {
     constructor(props) {
@@ -15,14 +16,27 @@ class PlaceDetail extends Component {
     }
 
     onNavigatorEvent = (event) => {
+        if (event.type === 'ScreenChangedEvent') {
+            if (event.id === 'willAppear') {
+                console.warn('now we are in delete funtion', this.props.placeDeleted)
+                this.props.onDeletePlaceStart()
+            }
+        }
         if (event.id === 'deleteButton') {
+            console.warn('delete button pressed', this.props.placeDeleted)
             this.props.onPlaceDelete(this.props.selectedPlace.key);
-            this.props.navigator.pop();
         }
     }
 
+    
     componentWillUnmount(){
         Dimensions.removeEventListener('change', this.updateStyle)
+    }
+
+    componentDidUpdate(){
+        if(this.props.placeDeleted) {
+            this.props.navigator.pop();
+        }
     }
 
     updateStyle = (event) => {
@@ -62,7 +76,12 @@ class PlaceDetail extends Component {
                         <Text style={styles.name}>{this.props.selectedPlace.placeName}</Text>
                         <Text style={styles.description}>{placeinfo}</Text>
                     </View>
-                </View>
+                    </View>                    
+                    <Spinner
+                            visible={this.props.isLoading}
+                            textStyle={styles.spinnerTextStyle}
+                            overlayColor="#00000077"
+                        />
             </View>
         )
     }
@@ -111,12 +130,23 @@ const styles = StyleSheet.create({
     },
     deleteButton: {
         alignItems: 'center'
-    }
+    },
+    spinnerTextStyle: {
+        color: '#ddd'
+      }
 })
+
+const mapStateToProps = (state) => {
+    return {
+        placeDeleted: state.places.placeDeleted,
+        isLoading: state.loading.isLoading,
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onPlaceDelete: (placeKey) => dispatch(deletePlace(placeKey))
+        onPlaceDelete: (placeKey) => dispatch(deletePlace(placeKey)),
+        onDeletePlaceStart: () => dispatch(startPlaceDelete())
     }
 }
-export default connect(null, mapDispatchToProps)(PlaceDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceDetail);

@@ -2,7 +2,9 @@ import {
     SET_PLACES,
     REMOVE_PLACE,
     PLACE_ADDED,
-    START_ADD_PLACE
+    START_ADD_PLACE,
+    PLACE_DELETED,
+    START_DELETE_PLACE
 } from './actionTypes';
 import {
     uiStartLoading,
@@ -145,6 +147,12 @@ export const setPlaces = places => {
     }
 }
 
+export const startPlaceDelete = () => {
+    return {
+        type: START_DELETE_PLACE
+    }
+}
+
 export const deletePlace = (key) => {
     return dispatch => {
         dispatch(uiStartLoading())
@@ -166,6 +174,7 @@ export const deletePlace = (key) => {
                 }
             })
             .then((parsed) => {
+                    dispatch(placeDeleted());
                     dispatch(uiStopLoading())
             })
             .catch(err => {
@@ -173,6 +182,12 @@ export const deletePlace = (key) => {
                 dispatch(uiStopLoading())
             })
 
+    }
+}
+
+export const placeDeleted = () => {
+    return {
+        type: PLACE_DELETED
     }
 }
 
