@@ -54,7 +54,8 @@ export const addPlace = (placeName, placeDescription, location, placeImage, loca
                         placeDescription,
                         location,
                         localId,
-                        placeImage: parsed.imageUrl
+                        placeImage: parsed.imageUrl,
+                        imagePath: parsed.imagePath
                     }
                     return fetch(`https://go-places-79741.firebaseio.com//placeData.json?auth=${authToken}`, {
                         method: 'POST',
