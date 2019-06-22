@@ -13,7 +13,7 @@ const SideDrawer = (props) => (
                     size={30}
                     color="#999"
                     />
-                <Text style={{ marginLeft: 10 }}>SideDrawer</Text>
+                <Text style={{ marginLeft: 10 }}>Logout</Text>
             </View>
         </TouchableOpacity>
     </View>

@@ -105,7 +105,6 @@ class ShareScreenPlace extends Component {
     placeAddedHandler = () => {
         const { controls } = this.state;
         this.props.onPlaceAdded(controls.placeName.value, controls.placeDescription.value, controls.location.value, controls.placeImage.value, this.props.localId);
-        console.warn(this.props.localId, 'placeadd');
         this.setState({
             controls: {
                 placeName: {
