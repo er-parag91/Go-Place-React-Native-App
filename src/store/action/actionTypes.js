@@ -4,7 +4,8 @@ export const REMOVE_PLACE = 'REMOVE_PLACE';
 export const SET_PLACES = 'SET_PLACES';
 export const PLACE_ADDED = 'PLACE_ADDED';
 export const START_ADD_PLACE = 'START_ADD_PLACE';
-
+export const PLACE_DELETED = 'PLACE_DELETED';
+export const START_DELETE_PLACE = 'START_PLACE_DELETE';
 
 export const PUT_AUTH = 'PUT_AUTH';
 export const AUTH_SET_TOKEN = 'AUTH_SET_TOKEN';
