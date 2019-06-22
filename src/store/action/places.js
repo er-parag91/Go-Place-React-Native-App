@@ -37,7 +37,13 @@ export const addPlace = (placeName, placeDescription, location, placeImage, loca
                     }
                 })
             })
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    throw new Error('could not submit the image');
+                }
+            })
             .then(parsed => {
                 if (parsed.error) {
                     throw new Error(parsed.error)
@@ -60,7 +66,13 @@ export const addPlace = (placeName, placeDescription, location, placeImage, loca
                 alert('Server/Auth ' + err);
                 dispatch(uiStopLoading())
             })
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    throw new Error('Error occured while submitting. Please try again');
+                }
+            })
             .then(parsed => {
                 if (parsed.error) {
                     throw new Error(parsed.error)
@@ -94,7 +106,13 @@ export const getPlaces = () => {
             .then(token => {
                 return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' + token + '&orderBy="localId"&equalTo="' + localId + '"')
             })
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    throw new Error('Error occured while loading data. Please try again');
+                }
+            })
             .then(parsed => {
 
                     const places = [];
@@ -139,7 +157,13 @@ export const deletePlace = (key) => {
                     method: 'DELETE'
                 })
             })
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    throw new Error('Error occured while deleting. Please try again');
+                }
+            })
             .then((parsed) => {
                     dispatch(uiStopLoading())
             })

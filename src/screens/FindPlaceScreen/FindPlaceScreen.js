@@ -23,6 +23,12 @@ class FindPlaceScreen extends Component {
     }
 
     onNavigatorEvent = (event) => {
+        if (event.type === 'ScreenChangedEvent') {
+            if (event.id === 'willAppear') {
+                this.props.onLoadPlaces()
+            }
+        }
+        
         if (event.type === 'NavBarButtonPress') {
             if (event.id === 'SideDrawerToggle') {
                 this.props.navigator.toggleDrawer({
@@ -30,10 +36,6 @@ class FindPlaceScreen extends Component {
                 })
             }
         }
-    }
-
-    componentDidMount(){
-        this.props.onLoadPlaces()
     }
 
     placesLoadedHandler = () => {
@@ -86,7 +88,7 @@ class FindPlaceScreen extends Component {
         let content = (
             <Spinner
                 visible={true}
-                textContent={'Loading...'}
+                textContent={'Alomst there...'}
                 textStyle={styles.spinnerTextStyle}
                 overlayColor="#00000077"
             />
