@@ -23,13 +23,7 @@ export const auth = (authData, authMode) => {
                 "Content-Type": "application/json"
             }
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                throw new Error('Error occured. Please try again');
-            }
-        })
+        .then(res => res.json())
         .then(parsedRes => {
             if (parsedRes.error) {
                 throw new Error(`${parsedRes.error.message} : Authentication error. Plaese try again`)
