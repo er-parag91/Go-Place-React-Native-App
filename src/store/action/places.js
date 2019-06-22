@@ -8,7 +8,7 @@ import {
     authGetToken
 } from './index';
 
-export const addPlace = (placeName, placeDescription, location, placeImage) => {
+export const addPlace = (placeName, placeDescription, location, placeImage, localId) => {
     return dispatch => {
         let authToken;
         dispatch(uiStartLoading())
@@ -33,10 +33,12 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
                 if (parsed.error) {
                     throw new Error(parsed.error)
                 } else {
+
                     const placeData = {
                         placeName,
                         placeDescription,
                         location,
+                        localId,
                         placeImage: parsed.imageUrl
                     }
                     return fetch(`https://go-places-79741.firebaseio.com//placeData.json?auth=${authToken}`, {
@@ -66,14 +68,15 @@ export const addPlace = (placeName, placeDescription, location, placeImage) => {
 }
 
 export const getPlaces = () => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        localId = getState().auth.localId;
         dispatch(uiStartLoading())
         dispatch(authGetToken())
             .catch(() => {
                 alert('Invalid Token supplied');
             })
             .then(token => {
-                return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' + token)
+                return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' + token + '&orderBy="localId"&equalTo="' + localId + '"')
             })
             .then(res => res.json())
             .then(parsed => {
