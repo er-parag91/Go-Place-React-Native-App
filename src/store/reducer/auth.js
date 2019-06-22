@@ -1,7 +1,8 @@
-import { AUTH_SET_TOKEN } from '../action/actionTypes';
+import { AUTH_SET_TOKEN, AUTH_REMOVE_TOKEN } from '../action/actionTypes';
 
 const initialState = {
     token: null,
+    expiryDate: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -10,6 +11,14 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: action.token,
+                expiryDate: action.expiryDate
+            }
+
+        case AUTH_REMOVE_TOKEN:
+            return {
+                ...state,
+                token: null,
+                expiryDate: null
             }
                     
         default: 
