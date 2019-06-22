@@ -66,7 +66,6 @@ export const authGetToken = () => {
         const promise = new Promise((resolve, reject) => {
             const token = getState().auth.token;
             const expiryDate = getState().state.expiryDate;
-            const localId = getState().state.localId;
             if (!token || new Date(expiryDate) <= now.Date()) {
                 let fetchedToken;
                 AsyncStorage.getItem('gp:auth:token')
@@ -84,7 +83,7 @@ export const authGetToken = () => {
                         const parsedExpiryDate = new Date(parseInt(expiryDate));
                         const now = new Date();
                         if (parsedExpiryDate > now) {
-                            dispatch(authSetToken(fetchedToken, null, localId));
+                            dispatch(authSetToken(fetchedToken));
                             resolve(fetchedToken);
                         } else {
                             reject();
