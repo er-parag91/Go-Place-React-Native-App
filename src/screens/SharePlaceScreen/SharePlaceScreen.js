@@ -8,6 +8,7 @@ import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import PickImage from '../../components/PickImage/PickImage';
 import PickLocation from '../../components/PickLocation/PickLocation';
 import validate from '../../utility/validation';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class ShareScreenPlace extends Component {
     static navigatorStyle = {
@@ -169,6 +170,12 @@ class ShareScreenPlace extends Component {
                         onPress={this.placeAddedHandler}
                     />
                     </View>
+                    <Spinner
+                        visible={this.props.isLoading}
+                        textContent={'Processing...'}
+                        textStyle={styles.spinnerTextStyle}
+                        overlayColor="#00000077"
+                    />
                 </KeyboardAvoidingView>
             </ScrollView>
         )
@@ -220,15 +227,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10
     },
-    loading: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#F5FCFF88'
-      }
+    spinnerTextStyle: {
+        color: '#ddd'
+      },
 })
 export default connect(mapStateToProps, mapDistpatchToProps)(ShareScreenPlace);

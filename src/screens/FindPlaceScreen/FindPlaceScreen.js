@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PlacesList from '../../components/PlacesList/PlacesList';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getPlaces } from '../../store/action/places';
-
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class FindPlaceScreen extends Component {
     static navigatorStyle = {
@@ -83,7 +83,14 @@ class FindPlaceScreen extends Component {
     }
 
     render() {
-        let content = <ActivityIndicator />
+        let content = (
+            <Spinner
+                visible={true}
+                textContent={'Loading...'}
+                textStyle={styles.spinnerTextStyle}
+                overlayColor="#00000077"
+            />
+        )
         if (!this.props.loading) {
             content = (
                 <Animated.View 
@@ -171,7 +178,10 @@ const styles = StyleSheet.create({
         color: '#33cc33',
         fontWeight: 'bold',
         fontSize: 26
-    }
+    },
+    spinnerTextStyle: {
+        color: '#ddd'
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindPlaceScreen);
