@@ -104,7 +104,8 @@ class ShareScreenPlace extends Component {
 
     placeAddedHandler = () => {
         const { controls } = this.state;
-        this.props.onPlaceAdded(controls.placeName.value, controls.placeDescription.value, controls.location.value, controls.placeImage.value);
+        this.props.onPlaceAdded(controls.placeName.value, controls.placeDescription.value, controls.location.value, controls.placeImage.value, this.props.localId);
+        console.warn(this.props.localId, 'placeadd');
         this.setState({
             controls: {
                 placeName: {
@@ -184,13 +185,14 @@ class ShareScreenPlace extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoading: state.loading.isLoading
+        isLoading: state.loading.isLoading,
+        localId: state.auth.localId
     }
 }
 
 const mapDistpatchToProps = (dispatch) => {
     return {
-        onPlaceAdded: (placeName, placeDescription, location, placeImage) => dispatch(addPlace(placeName, placeDescription, location, placeImage))
+        onPlaceAdded: (placeName, placeDescription, location, placeImage, localId) => dispatch(addPlace(placeName, placeDescription, location, placeImage, localId))
     }
 }
 
