@@ -13,9 +13,9 @@ Navigation.registerComponent("Go-places.AuthScreen", () => Auth, store, Provider
 Navigation.registerComponent("Go-places.FindPlaceScreen", () => FindPlaceScreen, store, Provider);
 Navigation.registerComponent("Go-places.SharePlaceScreen", () => SharePlaceScreen, store, Provider);
 Navigation.registerComponent("Go-places.PlaceDetail", () => PlaceDetail, store, Provider);
-Navigation.registerComponent("Go-places.SideDrawer", () => SideDrawer)
+Navigation.registerComponent("Go-places.SideDrawer", () => SideDrawer, store, Provider);
 
-Navigation.startSingleScreenApp({
+export default () => Navigation.startSingleScreenApp({
   screen: {
     screen: "Go-places.AuthScreen",
     title: "Login"
