@@ -9,8 +9,12 @@ class PickImage extends Component {
         avatarSource: imagePlaceHolder
     }
 
+    reset = () => {
+        this.setState({ avatarSource: imagePlaceHolder });
+    };
+
     pickImageHandler = () => {
-        ImagePicker.showImagePicker({title: 'Select Photo'}, response => {
+        ImagePicker.showImagePicker({title: 'Select Photo', maxHeight: 600, maxWidth: 600 }, response => {
             if (response.didCancel) {
                 alert('User cancelled image picker');
             } else if (response.error) {

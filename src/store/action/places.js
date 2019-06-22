@@ -1,12 +1,21 @@
 import {
     SET_PLACES,
-    REMOVE_PLACE
+    REMOVE_PLACE,
+    PLACE_ADDED,
+    START_ADD_PLACE
 } from './actionTypes';
 import {
     uiStartLoading,
     uiStopLoading,
     authGetToken
 } from './index';
+
+
+export const startAddPlace = () => {
+    return {
+        type: START_ADD_PLACE
+    }
+}
 
 export const addPlace = (placeName, placeDescription, location, placeImage, localId) => {
     return dispatch => {
@@ -57,6 +66,7 @@ export const addPlace = (placeName, placeDescription, location, placeImage, loca
                     throw new Error(parsed.error)
                 } else {
                     dispatch(uiStopLoading());
+                    dispatch(placeAdded());
                 }
             })
             .catch(err => {
@@ -64,6 +74,12 @@ export const addPlace = (placeName, placeDescription, location, placeImage, loca
                 alert('Server/Auth ' + err);
                 dispatch(uiStopLoading());
             });
+    }
+}
+
+export const placeAdded = () => {
+    return {
+        type: PLACE_ADDED
     }
 }
 

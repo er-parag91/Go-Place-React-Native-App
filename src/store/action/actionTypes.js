@@ -2,6 +2,9 @@ export const ADD_PLACE = 'ADD_PLACE';
 export const REMOVE_PLACE = 'REMOVE_PLACE';
 
 export const SET_PLACES = 'SET_PLACES';
+export const PLACE_ADDED = 'PLACE_ADDED';
+export const START_ADD_PLACE = 'START_ADD_PLACE';
+
 
 export const PUT_AUTH = 'PUT_AUTH';
 export const AUTH_SET_TOKEN = 'AUTH_SET_TOKEN';
