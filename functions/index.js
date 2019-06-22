@@ -76,3 +76,14 @@ exports.storeImage = functions.https.onRequest((request, response) => {
             });
     });
 });
+
+exports.deleteImage = functions.database
+    .ref("/placeData/{placeId}")
+    .onDelete((event) => {
+        const placeData = event.val();
+        const imagePath = placeData.imagePath;
+
+        const bucket = storage.bucket("go-places-79741.appspot.com");
+        return bucket.file(imagePath).delete();
+
+})
