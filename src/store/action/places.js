@@ -107,7 +107,12 @@ export const getPlaces = () => {
                 alert('Invalid Token supplied');
             })
             .then(token => {
-                return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' + token + '&orderBy="localId"&equalTo="' + localId + '"')
+                return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' 
+                                + 
+                                token 
+                                + 
+                                '&orderBy="localId"&equalTo="' + localId + '"'
+                                )
             })
             .then(res => {
                 if (res.ok) {

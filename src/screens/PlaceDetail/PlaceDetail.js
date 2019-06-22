@@ -18,12 +18,10 @@ class PlaceDetail extends Component {
     onNavigatorEvent = (event) => {
         if (event.type === 'ScreenChangedEvent') {
             if (event.id === 'willAppear') {
-                console.warn('now we are in delete funtion', this.props.placeDeleted)
                 this.props.onDeletePlaceStart()
             }
         }
         if (event.id === 'deleteButton') {
-            console.warn('delete button pressed', this.props.placeDeleted)
             this.props.onPlaceDelete(this.props.selectedPlace.key);
         }
     }
