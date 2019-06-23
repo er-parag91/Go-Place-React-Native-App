@@ -22,7 +22,10 @@ const styles = StyleSheet.create({
         paddingLeft: 34,
         flexDirection: 'row',
         borderRadius: 40,
-        alignItems: 'center'
+        alignItems: 'center',
+        shadowColor: 'black',
+        shadowOffset:{  width: 1,  height: 11,  },
+        shadowOpacity: 0.2
     },
     placeImage: {
         marginRight: 8,
