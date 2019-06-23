@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, MaskedViewIOS } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 const HeadingText = props => (
             <Text {...props}  style={[styles.HeadingText, props.style]}>{props.children}</Text>

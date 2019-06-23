@@ -136,7 +136,7 @@ class ShareScreenPlace extends Component {
             <ScrollView>
                 <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} style={styles.container}>
                     <MainText>
-                        <HeadingText>Share place with us!</HeadingText>
+                        <HeadingText style={{ color: '#333' }}>Share place with us!</HeadingText>
                     </MainText>
                     <PickImage 
                         onImagePicked={this.imgageSelectedHandler} 

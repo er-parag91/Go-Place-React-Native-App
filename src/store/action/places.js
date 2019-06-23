@@ -105,6 +105,7 @@ export const getPlaces = () => {
         dispatch(authGetToken())
             .catch(() => {
                 alert('Invalid Token supplied');
+                dispatch(uiStopLoading());
             })
             .then(token => {
                 return fetch('https://go-places-79741.firebaseio.com//placeData.json?auth=' 
@@ -139,8 +140,8 @@ export const getPlaces = () => {
                 
             })
             .catch(err => {
-                alert('Server/Auth ' + err);
                 dispatch(uiStopLoading())
+                alert('Server/Auth ' + err);
             })
     }
 }
