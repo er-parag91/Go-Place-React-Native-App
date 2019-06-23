@@ -3,15 +3,17 @@ import { View, Dimensions, StyleSheet, ImageBackground, KeyboardAvoidingView, To
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import MainText from '../../components/UI/MainText/MainText';
-import backgroundImage from '../../Assets/background.jpg';
+import backgroundImage from '../../Assets/login.jpg';
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 import validate from '../../utility/validation';
 import { connect } from 'react-redux';
 import { auth, autoSignIn } from '../../store/action/index';
 
+
 class Auth extends Component {
     static navigatorStyle = {
-        navBarBackgroundColor: '#4d4d4d'
+        navBarBackgroundColor: '#212121',
+        navBarTextColor: '#7ed56f'
     }
 
     constructor(props) {
@@ -129,24 +131,11 @@ class Auth extends Component {
         if (viewMode === 'portrait') {
             headingText = (
                 <MainText>
-                    <HeadingText style={{ color: '#ddd' }}>Please Log In</HeadingText>
+                    <HeadingText style={{ color: '#ddd' }}>{this.state.authMode === 'login' ? 'Registered User' : 'New User'}</HeadingText>
                 </MainText>
             );
         }
-        let submitButton = (
-            <ButtonWithBackground
-                onPress={this.authHandler}
-                color="#29aaf4"
-                width="50%"
-                disabled={
-                    !controls.email.valid ||
-                    !controls.password.valid ||
-                    !controls.confirmPassword.valid && this.state.authMode === 'signup'
-                }
-            >
-                Login
-        </ButtonWithBackground>
-        )
+
         if (this.props.loading) {
             submitButton = (
                 <View style={styles.loading}>
@@ -159,7 +148,7 @@ class Auth extends Component {
                 <KeyboardAvoidingView style={styles.container} behavior="padding">
                     <View style={styles.login}>
                         {headingText}
-                        <ButtonWithBackground color="#29aaf4" onPress={this.authModeSwitchHandler}>
+                        <ButtonWithBackground color="#7ed56f" textColor="#333" onPress={this.authModeSwitchHandler}>
                             Switch to {this.state.authMode === 'login' ? 'Sign-up' : 'login'}
                         </ButtonWithBackground>
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -217,7 +206,19 @@ class Auth extends Component {
                                 </View>
                             </View>
                         </TouchableWithoutFeedback>
-                        {submitButton}
+                        <ButtonWithBackground
+                            onPress={this.authHandler}
+                            color="#333"
+                            textColor="#28b485"
+                            width="50%"
+                            disabled={
+                                !controls.email.valid ||
+                                !controls.password.valid ||
+                                !controls.confirmPassword.valid && this.state.authMode === 'signup'
+                            }
+                        >
+                            Login
+                        </ButtonWithBackground>
                     </View>
                 </KeyboardAvoidingView>
             </ImageBackground>
@@ -236,8 +237,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     login: {
-        backgroundColor: '#00000088',
+        backgroundColor: '#00000066',
         width: '90%',
+        borderRadius: 15,
         alignItems: 'center',
         paddingTop: 25,
         paddingBottom: 25
