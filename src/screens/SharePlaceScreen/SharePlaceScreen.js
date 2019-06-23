@@ -210,13 +210,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#eee',
     },
-    placeholder: {
-        borderWidth: 1,
-        borderColor: '#eee',
-        backgroundColor: '#fff',
-        width: '80%',
-        height: 200
-    },
     button: {
         margin: 8,
         width: '80%',
