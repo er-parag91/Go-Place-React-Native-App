@@ -10,7 +10,8 @@ import backgroundImage from '../../Assets/login.jpg';
 class FindPlaceScreen extends Component {
     static navigatorStyle = {
         navBarBackgroundColor: '#212121',
-        navBarTextColor: '#7ed56f'
+        navBarTextColor: '#7ed56f',
+        navBarButtonColor: '#7ed56f'
     }
 
     constructor(props) {
