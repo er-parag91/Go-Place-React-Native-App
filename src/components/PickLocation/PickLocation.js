@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Button, Dimensions, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
+import ButtonWithBackground from '../UI/ButtonWithBackground/ButtonWithBackground';
 
 class PickLocation extends Component {
     state={};
@@ -76,7 +77,12 @@ class PickLocation extends Component {
                     {marker}
                 </MapView>
                 <View style={styles.button}>
-                    <Button title="Locate Me" onPress={this.getLocationHandler} />
+                    <ButtonWithBackground 
+                        onPress={this.getLocationHandler} 
+                        color="#333"
+                        textColor="#7ed56f"
+                        width="60%"
+                    >Get Your Location</ButtonWithBackground>
                 </View>
             </View>
         );
@@ -86,14 +92,17 @@ class PickLocation extends Component {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 40
     },
     map: {
         width: '80%',
         height: 250
     },
     button: {
-        margin: 8
+        margin: 8,
+        width: '80%',
+        alignItems: 'center'
     },
     imagePlaceHolder: {
         width: '100%',

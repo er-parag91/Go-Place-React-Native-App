@@ -9,6 +9,7 @@ import PickImage from '../../components/PickImage/PickImage';
 import PickLocation from '../../components/PickLocation/PickLocation';
 import validate from '../../utility/validation';
 import Spinner from 'react-native-loading-spinner-overlay';
+import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 
 class ShareScreenPlace extends Component {
     static navigatorStyle = {
@@ -136,7 +137,7 @@ class ShareScreenPlace extends Component {
             <ScrollView>
                 <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} style={styles.container}>
                     <MainText>
-                        <HeadingText style={{ color: '#333' }}>Share place with us!</HeadingText>
+                        <HeadingText style={{ color: '#333', fontFamily: 'Apple SD Gothic Neo' }}>Share place with us!</HeadingText>
                     </MainText>
                     <PickImage 
                         onImagePicked={this.imgageSelectedHandler} 
@@ -150,6 +151,7 @@ class ShareScreenPlace extends Component {
                         placeholder="Place Name"
                         placeName={this.state.controls.placeName}
                         onChangeHandler={(value) => this.onPlaceNameChangeHandler('placeName', value)}
+                        style={styles.input}
                     />
                     <TextInput
                         placeholder="Description (optional)"
@@ -160,15 +162,19 @@ class ShareScreenPlace extends Component {
                         style={styles.textArea}
                     />
                     <View style={styles.button}>
-                    <Button
-                        disabled={
-                            !this.state.controls.placeName.valid ||
-                            !this.state.controls.location.valid ||
-                            !this.state.controls.placeImage.valid
-                        }
-                        title="Share Place"
-                        onPress={this.placeAddedHandler}
-                    />
+                        <ButtonWithBackground 
+                            onPress={this.placeAddedHandler} 
+                            color="#55c57a"
+                            textColor="#fff"
+                            width="90%"
+                            disabled={
+                                !this.state.controls.placeName.valid ||
+                                !this.state.controls.location.valid ||
+                                !this.state.controls.placeImage.valid
+                            }
+                        >
+                            SHARE A PLACE!
+                        </ButtonWithBackground>
                     </View>
                     <Spinner
                         visible={this.props.isLoading}
@@ -201,16 +207,19 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#eee',
     },
     placeholder: {
         borderWidth: 1,
         borderColor: '#eee',
-        backgroundColor: '#ddd',
+        backgroundColor: '#fff',
         width: '80%',
         height: 200
     },
     button: {
-        margin: 8
+        margin: 8,
+        width: '80%',
+        alignItems: 'center'
     },
     imagePlaceHolder: {
         width: '100%',
@@ -225,10 +234,16 @@ const styles = StyleSheet.create({
         borderColor: '#eee',
         padding: 10,
         marginTop: 10,
-        marginBottom: 10
+        marginBottom: 10,
+        backgroundColor: '#fff',
+        borderColor: '#bbb'
     },
     spinnerTextStyle: {
         color: '#ddd'
       },
+      input: {
+        backgroundColor: '#fff',
+        borderColor: '#bbb'
+    },
 })
 export default connect(mapStateToProps, mapDistpatchToProps)(ShareScreenPlace);

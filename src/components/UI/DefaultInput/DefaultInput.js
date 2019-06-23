@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         borderColor: '#eee',
         padding: 10,
         marginTop: 10,
-        marginBottom: 10
+        marginBottom: 10,
+        backgroundColor: '#fff'
     },
     invalidInput: {
         backgroundColor: '#f9c0c0',
