@@ -131,7 +131,7 @@ class Auth extends Component {
         if (viewMode === 'portrait') {
             headingText = (
                 <MainText>
-                    <HeadingText style={{ color: '#ddd' }}>{this.state.authMode === 'login' ? 'Registered User' : 'New User'}</HeadingText>
+                    <HeadingText style={{ color: '#ccc' }}>{this.state.authMode === 'login' ? 'Registered User' : 'New User'}</HeadingText>
                 </MainText>
             );
         }
