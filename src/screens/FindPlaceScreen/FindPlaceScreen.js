@@ -39,6 +39,10 @@ class FindPlaceScreen extends Component {
         }
     }
 
+    redirectEventHandler = () => {
+        this.props.navigator.switchToTab({ tabIndex: 1 });
+    }
+
     placesLoadedHandler = () => {
         Animated.timing(this.state.placesAnimation, {
             toValue: 1,
@@ -65,7 +69,7 @@ class FindPlaceScreen extends Component {
             return place.key === key;
         })
         Promise.all([
-            Icon.getImageSource(Platform.OS === 'android' ? "md-trash" : "ios-trash", 30)
+            Icon.getImageSource(Platform.OS === 'android' ? "md-trash" : "ios-trash", 40, 'red')
         ]).then(sources => {
             this.props.navigator.push({
                 screen: 'Go-places.PlaceDetail',
@@ -135,9 +139,9 @@ class FindPlaceScreen extends Component {
                     }}
                 >
                     <PlacesList
-                        // places={this.props.places}
-                        places={[]}
+                        places={this.props.places}
                         onPlaceSelected={this.itemSelectedHandler}
+                        redirectButtonPressed={this.redirectEventHandler}
                     />
                 </Animated.View>
                 )

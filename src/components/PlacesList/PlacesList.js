@@ -5,19 +5,16 @@ import ButtonWithBackground from '../UI/ButtonWithBackground/ButtonWithBackgroun
 
 const PlacesList = (props) => {
 
-    addPlaceHandler = () => {
-        console.warn('I am pressed')
-    }
-
     if (props.places.length === 0) {
         return (
-            <View>
-                <Text style={styles.emptyTitle}>Aw! Snap</Text>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={styles.emptyTitle}>Aww! Snap</Text>
                 <Text style={styles.emptyText}>Looks like your places list is empty</Text>
                 <ButtonWithBackground 
-                    onPress={this.addPlaceHandler}
+                    onPress={props.redirectButtonPressed}
                     color="#333"
                     textColor="#28b485"
+                    width='40%'
                 >
                 Add Place
                 </ButtonWithBackground>
@@ -48,12 +45,16 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     emptyTitle: {
-        fontSize: 14,
-        color: '#444'
+        fontSize: 22,
+        lineHeight: 50,
+        color: '#444',
+        textAlign: 'center'
     },
     emptyText:{
-        fontSize: 11,
-        color: '#444'
+        fontSize: 14,
+        color: '#444',
+        lineHeight: 40,
+        textAlign: 'center'
     }
 });
 

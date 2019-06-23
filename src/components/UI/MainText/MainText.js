@@ -8,7 +8,8 @@ const MainText = props => (
 
 const styles = StyleSheet.create({
     MainText: {
-        color: 'black'
+        color: '#333',
+        lineHeight: 60
     }
 })
 

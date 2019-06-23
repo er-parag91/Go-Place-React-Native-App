@@ -87,8 +87,9 @@ class PlaceDetail extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        margin: 22,
-        flex: 1
+        padding: 22,
+        flex: 1,
+        backgroundColor: '#f7f7f7'
     },
     portraitContainer: {
         flexDirection: 'column'
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     map: {
         ...StyleSheet.absoluteFillObject,
         borderWidth: 4,
-        borderColor: '#aaa'
+        borderColor: '#333'
     },
     description: {
         textAlign: 'left',
@@ -124,7 +125,8 @@ const styles = StyleSheet.create({
     placeImage: {
         height: '100%',
         width: '100%',
-        borderWidth: 4
+        borderWidth: 4,
+        borderColor: '#333'
     },
     deleteButton: {
         alignItems: 'center'
