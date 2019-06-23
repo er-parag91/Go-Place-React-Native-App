@@ -22,7 +22,7 @@ const SideDrawer = (props) => (
 const styles = StyleSheet.create({
     container: {
         paddingTop: 50,
-        backgroundColor: 'white',
+        backgroundColor: '#333',
         flex: 1
     },
     logOut: {

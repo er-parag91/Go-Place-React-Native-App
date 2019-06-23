@@ -43,8 +43,9 @@ const StartMainTabs = () => {
                 }
             ],
             tabsStyle: {
-                tabBarSelectedButtonColor: '#33cc33',
-                tabBarBackgroundColor: '#4d4d4d',
+                tabBarSelectedButtonColor: '#7ed56f',
+                tabBarBackgroundColor: '#333',
+                tabBarButtonColor: '#f7f7f7'
             },
             drawer: {
                 left: {
