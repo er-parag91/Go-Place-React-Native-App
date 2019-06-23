@@ -12,8 +12,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 class ShareScreenPlace extends Component {
     static navigatorStyle = {
-        navBarButtonColor: '#33cc33',
-        navBarBackgroundColor: '#4d4d4d'
+        navBarBackgroundColor: '#212121',
+        navBarTextColor: '#7ed56f'
     }
     constructor(props) {
         super(props);

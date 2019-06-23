@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Animated, Platform, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Animated, Platform, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import PlacesList from '../../components/PlacesList/PlacesList';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getPlaces } from '../../store/action/places';
 import Spinner from 'react-native-loading-spinner-overlay';
+import backgroundImage from '../../Assets/login.jpg';
 
 class FindPlaceScreen extends Component {
     static navigatorStyle = {
-        navBarButtonColor: '#33cc33',
-        navBarBackgroundColor: '#4d4d4d'
+        navBarBackgroundColor: '#212121',
+        navBarTextColor: '#7ed56f'
     }
 
     constructor(props) {
@@ -122,6 +123,7 @@ class FindPlaceScreen extends Component {
                 <Animated.View
                     style={{
                         opacity: this.state.placesAnimation,
+                        width: '95%',
                         transform: [
                             {
                                 scale: this.state.placesAnimation.interpolate({
@@ -133,16 +135,19 @@ class FindPlaceScreen extends Component {
                     }}
                 >
                     <PlacesList
-                        places={this.props.places}
+                        // places={this.props.places}
+                        places={[]}
                         onPlaceSelected={this.itemSelectedHandler}
                     />
                 </Animated.View>
                 )
         }
         return (
-            <View style={[!this.state.placesLoaded ? styles.buttonContainer : null, styles.container]}>
-                {content}
-            </View>
+            <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+                <View style={[!this.state.placesLoaded ? styles.buttonContainer : null, styles.container]}>
+                    {content}
+                </View>
+            </ImageBackground>
         )
     }
 }
@@ -161,9 +166,16 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'black',
+    backgroundImage: {
+        width: '100%',
         flex: 1
+    },
+    container: {
+        backgroundColor: '#f7f7f7',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+
     },
     buttonContainer: {
         flex: 1,
