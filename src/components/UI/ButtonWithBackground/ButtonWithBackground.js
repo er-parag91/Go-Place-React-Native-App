@@ -3,11 +3,19 @@ import { TouchableOpacity, Text, View, StyleSheet, TouchableNativeFeedback, Plat
 
 const ButtonWithBackground = props => {
 
+    alertHandler = () => {
+        alert('Please Fill in enough details to submit')
+    }
+
     const content = (
         <View style={[styles.button, { backgroundColor: props.color }, props.disabled ? styles.disabled : null]}>
             <Text 
                 style={[ 
-                        { textAlign: 'center', color: props.textColor },
+                        { 
+                        textAlign: 'center', 
+                        color: props.textColor, 
+                        fontSize: 16,
+                        fontFamily: 'AppleSDGothicNeo-Regular' },
                         props.disabled ? styles.disabledText 
                         : 
                         null
@@ -21,13 +29,13 @@ const ButtonWithBackground = props => {
 
     if (Platform.OS === 'android') {
         return (
-            <TouchableNativeFeedback onPress={props.onPress}>
+            <TouchableNativeFeedback onPress={props.disabled ? this.alertHandler : props.onPress} style={{ width: props.width}}>
                 {content}
             </TouchableNativeFeedback>
         )
     }
     return (
-        <TouchableOpacity onPress={props.disabled ? null : props.onPress} style={{ width: props.width}}>
+        <TouchableOpacity onPress={props.disabled ? this.alertHandler : props.onPress} style={{ width: props.width}}>
             {content}
         </TouchableOpacity>
     )
@@ -40,10 +48,10 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     disabled: {
-        backgroundColor: '#999',
+        backgroundColor: '#666',
     },
     disabledText: {
-        color: '#ccc'
+        color: '#eee'
     }
 })
 
