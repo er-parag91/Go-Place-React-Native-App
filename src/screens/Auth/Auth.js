@@ -131,7 +131,7 @@ class Auth extends Component {
         if (viewMode === 'portrait') {
             headingText = (
                 <MainText>
-                    <HeadingText style={{ color: '#eee', fontFamily: 'Apple SD Gothic Neo' }}>{this.state.authMode === 'login' ? 'Registered User' : 'New User'}</HeadingText>
+                    <HeadingText style={{ color: '#eee', fontFamily: 'Apple SD Gothic Neo' }}>{this.state.authMode === 'login' ? 'Registered User' : 'New User Registration'}</HeadingText>
                 </MainText>
             );
         }
@@ -217,7 +217,7 @@ class Auth extends Component {
                                 !controls.confirmPassword.valid && this.state.authMode === 'signup'
                             }
                         >
-                            Login
+                            {this.state.authMode === 'login' ? 'Login' : 'SignUp'}
                         </ButtonWithBackground>
                     </View>
                 </KeyboardAvoidingView>
