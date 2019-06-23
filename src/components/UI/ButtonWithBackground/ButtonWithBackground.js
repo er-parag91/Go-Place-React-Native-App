@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
         padding: 10,  
         margin: 5,
         borderRadius: 25,
+        shadowColor: 'black',
+        shadowOffset:{  width: 2,  height: 3  },
+        shadowOpacity: 0.1
     },
     disabled: {
         backgroundColor: '#666',

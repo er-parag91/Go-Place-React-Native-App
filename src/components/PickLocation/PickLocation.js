@@ -93,7 +93,10 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         alignItems: 'center',
-        marginBottom: 40
+        marginBottom: 40,
+        shadowColor: 'black',
+        shadowOffset:{  width: 5,  height: 6,  },
+        shadowOpacity: 0.3
     },
     map: {
         width: '80%',
