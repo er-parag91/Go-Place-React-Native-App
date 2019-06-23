@@ -105,7 +105,10 @@ const styles = StyleSheet.create({
     subContainer: {
         flex: 1,
         justifyContent: 'center',
-        margin: 5
+        margin: 5,
+        shadowColor: 'black',
+        shadowOffset:{  width: 5,  height: 6,  },
+        shadowOpacity: 0.3
     },
     map: {
         ...StyleSheet.absoluteFillObject,
