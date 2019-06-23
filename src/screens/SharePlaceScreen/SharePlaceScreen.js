@@ -14,7 +14,8 @@ import ButtonWithBackground from '../../components/UI/ButtonWithBackground/Butto
 class ShareScreenPlace extends Component {
     static navigatorStyle = {
         navBarBackgroundColor: '#212121',
-        navBarTextColor: '#7ed56f'
+        navBarTextColor: '#7ed56f',
+        navBarButtonColor: '#7ed56f'
     }
     constructor(props) {
         super(props);

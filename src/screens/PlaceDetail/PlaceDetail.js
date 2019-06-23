@@ -6,6 +6,11 @@ import MapView from 'react-native-maps';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 class PlaceDetail extends Component {
+    static navigatorStyle = {
+        navBarBackgroundColor: '#212121',
+        navBarTextColor: '#7ed56f',
+        navBarButtonColor: 'red'
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -87,7 +92,7 @@ class PlaceDetail extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 22,
+        padding: 14,
         flex: 1,
         backgroundColor: '#f7f7f7'
     },
@@ -125,7 +130,7 @@ const styles = StyleSheet.create({
     placeImage: {
         height: '100%',
         width: '100%',
-        borderWidth: 4,
+        borderWidth: 9,
         borderColor: '#333'
     },
     deleteButton: {
