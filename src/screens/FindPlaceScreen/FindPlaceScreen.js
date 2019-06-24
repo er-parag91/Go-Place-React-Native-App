@@ -70,7 +70,7 @@ class FindPlaceScreen extends Component {
             return place.key === key;
         })
         Promise.all([
-            Icon.getImageSource(Platform.OS === 'android' ? "md-trash" : "ios-trash", 40, 'red')
+            Icon.getImageSource(Platform.OS === 'android' ? "md-trash" : "ios-trash", 35, 'red')
         ]).then(sources => {
             this.props.navigator.push({
                 screen: 'Go-places.PlaceDetail',
