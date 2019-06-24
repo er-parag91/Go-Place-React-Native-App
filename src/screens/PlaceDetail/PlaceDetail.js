@@ -9,7 +9,7 @@ class PlaceDetail extends Component {
     static navigatorStyle = {
         navBarBackgroundColor: '#212121',
         navBarTextColor: '#7ed56f',
-        navBarButtonColor: 'red'
+        navBarButtonColor: '#7ed56f'
     }
     constructor(props) {
         super(props);
