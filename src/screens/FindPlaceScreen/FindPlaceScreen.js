@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#f7f7f7',
         flex: 1,
-        alignItems: 'center'
+\        alignItems: 'center'
 
     },
     buttonContainer: {
