@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import { deletePlace, startPlaceDelete} from '../../store/action/index';
+import { deletePlace, startPlaceDelete } from '../../store/action/index';
 import MapView from 'react-native-maps';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class PlaceDetail extends Component {
     static navigatorStyle = {
         navBarBackgroundColor: '#212121',
-        navBarTextColor: '#7ed56f',
-        navBarButtonColor: '#7ed56f'
+        navBarRightButtonColor: 'red'
     }
     constructor(props) {
         super(props);
         this.state = {
-            viewMode: 'portrait',
+            viewMode: 'portrait'
         }
         Dimensions.addEventListener('change', this.updateStyle);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
@@ -23,6 +23,17 @@ class PlaceDetail extends Component {
     onNavigatorEvent = (event) => {
         if (event.type === 'ScreenChangedEvent') {
             if (event.id === 'willAppear') {
+                Promise.all([
+                    Icon.getImageSource(Platform.OS === 'android' ? "md-trash" : "ios-trash", 35, 'red')
+                ]).then(sources => {
+                    this.props.navigator.setButtons({
+                        rightButtons: [{
+                            id: 'deleteButton',
+                            icon: sources[0],
+                            color: '#BF876C'
+                        }]
+                    })
+                });
                 this.props.onDeletePlaceStart()
             }
         }
@@ -31,13 +42,13 @@ class PlaceDetail extends Component {
         }
     }
 
-    
-    componentWillUnmount(){
+
+    componentWillUnmount() {
         Dimensions.removeEventListener('change', this.updateStyle)
     }
 
-    componentDidUpdate(){
-        if(this.props.placeDeleted) {
+    componentDidUpdate() {
+        if (this.props.placeDeleted) {
             this.props.navigator.pop();
         }
     }
@@ -69,7 +80,7 @@ class PlaceDetail extends Component {
                         }}
                         style={styles.map}
                     >
-                        <MapView.Marker coordinate={this.props.selectedPlace.location}/>
+                        <MapView.Marker coordinate={this.props.selectedPlace.location} />
                     </MapView>
                 </View>
 
@@ -79,12 +90,12 @@ class PlaceDetail extends Component {
                         <Text style={styles.name}>{this.props.selectedPlace.placeName}</Text>
                         <Text style={styles.description}>{placeinfo}</Text>
                     </View>
-                    </View>                    
-                    <Spinner
-                            visible={this.props.isLoading}
-                            textStyle={styles.spinnerTextStyle}
-                            overlayColor="#00000077"
-                        />
+                </View>
+                <Spinner
+                    visible={this.props.isLoading}
+                    textStyle={styles.spinnerTextStyle}
+                    overlayColor="#00000077"
+                />
             </View>
         )
     }
@@ -107,7 +118,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 5,
         shadowColor: 'black',
-        shadowOffset:{  width: 5,  height: 6,  },
+        shadowOffset: { width: 5, height: 6, },
         shadowOpacity: 0.3
     },
     map: {
@@ -141,7 +152,7 @@ const styles = StyleSheet.create({
     },
     spinnerTextStyle: {
         color: '#ddd'
-      }
+    }
 })
 
 const mapStateToProps = (state) => {

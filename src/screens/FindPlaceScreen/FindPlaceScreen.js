@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Animated, Platform, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import PlacesList from '../../components/PlacesList/PlacesList';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { getPlaces } from '../../store/action/places';
 import Spinner from 'react-native-loading-spinner-overlay';
 import backgroundImage from '../../Assets/login.jpg';
@@ -69,25 +68,26 @@ class FindPlaceScreen extends Component {
         const selectedPlace = this.props.places.find(place => {
             return place.key === key;
         })
-        Promise.all([
-            Icon.getImageSource(Platform.OS === 'android' ? "md-trash" : "ios-trash", 35, 'red')
-        ]).then(sources => {
+        // commented out trash navicon 
+        // Promise.all([
+        //     Icon.getImageSource(Platform.OS === 'android' ? "md-trash" : "ios-trash", 35, 'red')
+        // ]).then(sources => {
             this.props.navigator.push({
                 screen: 'Go-places.PlaceDetail',
                 title: selectedPlace.placeName,
                 passProps: {
                     selectedPlace: selectedPlace
                 },
-                navigatorButtons: {
-                    rightButtons: [
-                        {
-                            icon: sources[0],
-                            id: 'deleteButton'
-                        }
-                    ]
-                }
+                // navigatorButtons: {
+                //     rightButtons: [
+                //         {
+                //             icon: sources[0],
+                //             id: 'deleteButton'
+                //         }
+                //     ]
+                // }
             })
-        })
+        // })
     }
 
     render() {
@@ -148,11 +148,9 @@ class FindPlaceScreen extends Component {
                 )
         }
         return (
-            <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
                 <View style={[!this.state.placesLoaded ? styles.buttonContainer : null, styles.container]}>
                     {content}
                 </View>
-            </ImageBackground>
         )
     }
 }
@@ -171,14 +169,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 const styles = StyleSheet.create({
-    backgroundImage: {
-        width: '100%',
-        flex: 1
-    },
     container: {
         backgroundColor: '#f7f7f7',
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center'
 
     },
